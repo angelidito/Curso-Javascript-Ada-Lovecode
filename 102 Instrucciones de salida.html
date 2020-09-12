@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>102 Instrucciones de salida</title>
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+
+		<h1>Instrucciones de salida</h1>
+
+		<p id="miParrafo01">Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Oh, yeah. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. Parrafo de prueba. </p>
+		
+
+		<script type="text/javascript">
+			window.alert("Se va a cambiar el parrado de pruebas. Ya lo verás");
+			// document.write() no es recomendable para escribir en un documento, es mas recomendable la siguiente instrucción.
+			document.write("<h2>¿Qué tal? (document.write)</h2> <p>document.write document.write document.write document.write document.write document.write document.write document.write document.write document.write document.write document.write document.write </p>");
+			//esta:
+			document.getElementById('miParrafo01').innerHTML = "Parrafo cambiado. JA, JA, JA, JA. <br/> Con --> document.getElementById('miParrafo01').innerHTML = \"texto\";";
+
+			console.log("Texto para la consola. Fijo que esto es util más adelante. Quiza para depurar…");
+
+		</script>
+	</body>
+</html>
