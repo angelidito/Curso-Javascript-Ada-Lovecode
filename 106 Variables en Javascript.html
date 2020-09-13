@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>106 Variables en Javascript</title>
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+		<p id="parrafo1"></p>
+
+		<p id="parrafo2"></p>
+
+		<p id="parrafo3"></p>
+
+		<script type="text/javascript">
+			/*
+			- identificadores unicos
+			- recomendable utilizar identificadores descriptivos
+			- empezar por letra, $, _ y siguien por letra, $, _ o número
+			- pueden contener cadenas ("", ''), números (enteros o decimales), booleanos...
+			- case sensitive
+			*/
+
+			var variable;
+
+			document.getElementById('parrafo1').innerHTML = variable;
+
+			variable = "Mori";
+
+			document.getElementById('parrafo2').innerHTML = variable;
+
+			var pais = "España", ciudad = "Sarandonga";
+
+			var direccion = ciudad + ", " + pais;
+
+			document.getElementById('parrafo3').innerHTML = variable 
+				+ " nació en " + direccion;
+
+		</script>
+
+		
+	</body>
+</html>
