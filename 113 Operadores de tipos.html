@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>113 Operadores de tipos</title>
+</head>
+<body>
+
+	<h1>113 Operadores de tipos</h1>
+	
+	<script type="text/javascript">
+
+		alert("Ejemplos:");
+
+		var cadena = "Mori";
+		alert(typeof cadena); 
+
+		var numero = 342342423;
+		alert(typeof numero);
+
+		var booleano = true;
+		alert(typeof booleano);
+
+		var lista = [ 1, 2, 3, 345 ];
+		alert(typeof lista); //objeto también
+
+		var registro = { nombre: "Mori", apellido: "M."};
+		alert(typeof registro); // objeto
+
+		var objeto = new Date;
+		alert(typeof objeto);
+
+		var funcion = function function_name() { alert("hola"); };
+		alert(typeof funcion);
+
+		var sinDefinir ;
+		alert(typeof sinDefinir);
+
+		var nula = null; // Se considera objeto
+		alert(typeof nula);
+
+
+		alert("instanceof. registro instanceof Object, por ejemplo, devuelve un booleano. Nos dice si la variable es una instancia de objeto: " 
+		+ (registro instanceof Object));
+
+
+	</script>
+</body>
+</html>
