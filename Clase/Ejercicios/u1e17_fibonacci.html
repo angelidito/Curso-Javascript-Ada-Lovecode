@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function fboler(pos = 0) {
+            let f_2 = 0;
+            let f_1 = 1;
+            let f_n;
+            if (pos > -1) {
+                document.write(0);
+            }
+            if (pos > 0) {
+                document.write(", 1");
+            }
+            for (let i = 2; i < pos; i++) {
+                f_n = f_1 + f_2;
+                document.write(", " + f_n );
+                f_2 = f_1;
+                f_1 = f_n;
+            }
+        }
+        fboler(103);
+    </script>
+</body>
+
+</html>
