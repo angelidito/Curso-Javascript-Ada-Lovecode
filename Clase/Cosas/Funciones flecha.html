@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*En lugar de la palabra clave function, utiliza una flecha (=>) formada por el signo igual (=) seguido del signo mayor que (>).
+        La flecha va detrás de la lista de parámetros, y seguida del cuerpo de la función:*/
+
+        // Funcion anónima
+        var producto1 = (a, b) => {
+            return a * b;
+        }
+        //Si la función tiene una sola sentencia que devuelve un valor, podemos eliminar los corchetes y la palabra clave return:
+        var producto2 = (a, b) => a * b;
+
+        //Los paréntesis son opcionales si tenemos un solo parámetro:
+        var cuadrado = a => a ^ 2;
+        var saludo1 = nombre => "Hola, " + nombre + ".";
+
+        // Los paréntesis son obligatorios si una función no tiene parámetros:
+        var saludo2 = () => "Hola";
+    </script>
+
+</body>
+
+</html>
