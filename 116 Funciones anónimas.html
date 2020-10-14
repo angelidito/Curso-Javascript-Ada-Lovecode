@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>116 Funciones anónimas</title>
+</head>
+<body>
+    <script>
+        // En vez de 
+        // function nombre (p1, p2, ...) {instrucciones}
+        // tenemos las siguientes opciones:
+        
+        var producto = function (a, b) { return a * b };
+        var resultado = producto(2,3);
+        alert( resultado   );
+        alert (producto(5,3));
+
+        // Constructor Function()
+        var miFuncion = new Function ("a", "b", "return a*b");
+        alert(miFuncion(7,5));
+
+
+        // Funciones anónimas autoinvocadas
+        (function () { alert("Hola, mi pana.")})()
+
+        
+    </script>
+    
+</body>
+</html>
