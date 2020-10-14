@@ -13,12 +13,10 @@
         // ese número, utilizando document.write().
         // Para pedir un valor del usuario utilizamos el siguiente código:
         // ▪ var respuesta = prompt(“Mensaje”);
-        var respuesta = prompt("Escribe un nº");
-
-        for (let i = 0; i < 10; i++) {
-            document.write(respuesta + " * " + i + " = " + (i * respuesta));
-
-
+        
+        var num = prompt("Escribe un nº");
+        for (let i = 0; i <= 10; i++) {
+            document.write(num + " * " + i + " = " + (Number(num) * i) + "<br>");
         }
     </script>
 </body>

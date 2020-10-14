@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Modifica el ejercicio anterior, pero en este caso el intervalo será de 5 minutos. Los minutos se deben escribir siempre con 2 cifras. Ej.: 9:00, 9:05, 9:10, ...
+
+        alert("con firefox se cuelga no sé por qué, pero con safari me ha ido bien")
+        for (let i = 9; i < 22; i++) {
+            document.write(i + ":00<br>");
+            document.write(i + ":05<br>");
+
+            let j = 10;
+            while (j < 60) {
+                if (i <= 21 && j <= 30){
+                document.write(i + ":" + j + "<br>");
+                }
+                j += 5;
+            }
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Realizar un script que escriba en la página los números del 1 al 100. Junto a ellos, escribirá el mensaje “es múltiplo de 2” y “es múltiplo de 3” SOLO junto a aquellos números en que se cumpla esta condición. En el caso de los números que sean múltiplos de ambos, se mostrarán ambos mensajes.
+        // LISTADO DE NUMEROS DEL 1 AL 100
+
+        document.write("LISTADO DE NUMEROS DEL 1 AL 100");
+
+        alert ("Profe, lo he dejado un poco mas bonito.\nMe daba rabia no hacerlo.")
+        for (let i = 0; i <= 100; i++) {
+            document.write("<br>");
+            document.write("El " + i);
+            if (i % 2 == 0)
+                document.write(" es múltiplo de 2");
+            if (i % 3 == 0)
+                if (i % 2 == 0)
+                    document.write(" y de 3");
+                else
+                    document.write(" es múltiplo de 3");
+
+
+        }
+    </script>
+</body>
+
+</html>

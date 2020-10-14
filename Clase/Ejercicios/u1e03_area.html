@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Escribir un script que permita calcular el área y el perímetro de cada una de las siguientes figuras: a) Un cuadrado b) Un triángulo d) Un círculo
+        // Para ello el script pedirá primero al usuario cual es la figura con la que desea trabajar. El usuario responderá: “S” para el cuadrado (square), “T” para el triángulo (triangle) y “C” para el círculo (circle). 
+        // Una vez se sepa la figura, el script pedirá al usuario los datos que necesite (se repetirá la pregunta tantas veces como datos se necesite).
+        // Tener en cuenta que:
+        // • Área del cuadrado: lado^2;
+        // • Área del triángulo: (base * altura)/2;
+        // • Área del círculo: PI * radio^2
+        // • Perímetro del círculo: 2 * PI * radio
+        // • El valor de PI se obtiene con Math.PI (PI es una constante del objeto Math).
+        // Finalmente, el script escribirá en la página web: los datos que le ha facilitado el usuario y el resultado pedido.
+        // Ejemplo (para el cuadrado):
+        // Se pregunta: “¿Que figura desea calcular?” El usuario responde: “C”
+        // Se pregunta: “¿Cuál es la longitud del lado?” El usuario responde: “2”
+        // Respuesta:
+        // Cuadrado
+        // lado: 2 cm
+        // área: 4 cm2
+        // perímetro: 8 cm
+
+        var contador = 0;
+
+        while (true) {
+            var lado = "NaN";
+            var figura = prompt(
+                '¿Qué figura desea? ' +
+                '\n “S” para el cuadrado (square), “T” para el triángulo equilátero (triangle) y “C” para el círculo (circle): '
+            );
+            if (figura == "S") {
+                contador++;
+
+                while (isNaN(lado)) 
+                    lado = prompt("Logitud del lado: ");
+                
+                document.write("Cuatrado nº" + contador + ".<br>");
+                document.write("Lado: " + lado + " <br>");
+                document.write("Área: " + lado * lado + " <br>");
+                document.write("Perímetro: " + lado * 4 + " <br>");
+                document.write("<br>");
+
+            } else if (figura == "T") {
+                contador++;
+
+                while (isNaN(lado))
+                    lado = prompt("Longitud de la altura y la base del triangulo equilatero: ");
+
+                document.write("Cuatrado nº" + contador + ".<br>");
+                document.write("Lado: " + lado + " <br>");
+                document.write("Área: " + lado * lado / 4+ " <br>");
+                document.write("Perímetro: " + lado * 3 + " <br>");
+                document.write("<br>");
+            } else if (figura == "C") {
+                contador++;
+
+                while (isNaN(lado)) 
+                    lado = prompt("Logitud del radio: ");
+                
+                document.write("Cuatrado nº" + contador + ".<br>");
+                document.write("Radio: " + lado + " <br>");
+                document.write("Área: " + lado * lado * Math.PI+ " <br>");
+                document.write("Perímetro: " + lado * Math.PI * 2 + " <br>");
+                document.write("<br>");
+            }
+
+        }
+    </script>
+</body>
+
+</html>
