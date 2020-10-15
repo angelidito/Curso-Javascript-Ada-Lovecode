@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // El operador resto (%) se puede utilizar para comprobar si un número es par o impar, utilizando
+        // % 2, para saber si es divisible por dos.
+        // Hay otro modo de definir si un número positivo entero es par o impar:
+        // • 0 es par
+        // • 1 es impar
+        // • Para cualquier otro número N, es par si lo es N-2; o impar si lo es N-2.
+        // Define una función recursiva esPar de acuerdo con esta definición. La función debería aceptar
+        // un solo parámetro y devolver un boolean
+
+        function esPar(n) {
+
+            if (n == 0)
+                return true;
+
+            if (n == 1)
+                return false;
+
+            return esPar(n - 2);
+        }
+
+        for (let i = 0; i < 121; i++) {
+            document.write('¿Es par el nº ' + i + '?<br>');
+            if (esPar(i))
+                document.write("Sí<br>");
+            else
+                document.write("No<br>");
+
+        }
+    </script>
+</body>
+
+</html>

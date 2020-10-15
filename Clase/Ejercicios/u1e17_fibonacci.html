@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,24 +9,54 @@
 
 <body>
     <script>
-        function fboler(pos = 0) {
+        function fiboIter(pos = 0) {
             let f_2 = 0;
             let f_1 = 1;
             let f_n;
-            if (pos > -1) {
+
+            document.write("<p>");
+            if (pos >= 0) {
                 document.write(0);
             }
-            if (pos > 0) {
+            if (pos >= 1) {
                 document.write(", 1");
             }
-            for (let i = 2; i < pos; i++) {
+            for (let i = 2; i <= pos; i++) {
                 f_n = f_1 + f_2;
-                document.write(", " + f_n );
+                document.write(", " + f_n);
                 f_2 = f_1;
                 f_1 = f_n;
             }
+
+            document.write("</p>");
         }
-        fboler(103);
+        fiboIter(103);
+
+
+        function fiborRecur(pos = 0) {
+            let f_2 = 0;
+            let f_1 = 1;
+            document.write("<p>");
+
+
+            if (pos > 0) {
+                document.write(0);
+            }
+            if (pos > 1) {
+                document.write(", 1");
+            }
+            if( pos > 2){
+                fiboR_aux(pos, 2, f_1, f_2);
+            }
+
+            document.write("</p>");
+        }
+
+        function fibfiboR_auxoR(pos, n, f_1, f_2) {
+
+            
+        }
+        fiborRecur(103);
     </script>
 </body>
 
