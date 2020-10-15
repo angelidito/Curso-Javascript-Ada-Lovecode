@@ -33,27 +33,29 @@
         fiboIter(103);
 
 
-        function fiborRecur(pos = 0) {
-            let f_2 = 0;
-            let f_1 = 1;
-            document.write("<p>");
+        function fiborRecur(pos = 0, n=0, f_1=1, f_2=0) {
+            
 
 
-            if (pos > 0) {
+            if (pos > 0 && n == 0) {
                 document.write(0);
             }
-            if (pos > 1) {
+            if (pos > 1 && n == 0) {
                 document.write(", 1");
             }
-            if( pos > 2){
+            if( pos > 2 &&){
                 fiboR_aux(pos, 2, f_1, f_2);
             }
 
-            document.write("</p>");
         }
 
         function fibfiboR_auxoR(pos, n, f_1, f_2) {
-
+                var f_n = f_1 + f_2;
+                document.write(", " + f_n);
+                f_2 = f_1;
+                f_1 = f_n;
+            if (pos>=f_n){
+            }
             
         }
         fiborRecur(103);
