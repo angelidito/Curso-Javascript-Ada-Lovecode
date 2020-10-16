@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>113 Operadores de tipos</title>
 </head>
+
 <body>
 
 	<h1>mira la consola</h1>
-	
-	<script >
 
+	<script>
 		console.log("Ejemplos:");
 
 		var cadena = "Mori";
-		console.log(typeof cadena); 
+		console.log(typeof cadena);
 
 		var numero = 342342423;
 		console.log(typeof numero);
@@ -21,27 +22,29 @@
 		var booleano = true;
 		console.log(typeof booleano);
 
-		var lista = [ 1, 2, 3, 345 ];
+		var lista = [1, 2, 3, 345];
 		console.log(typeof lista); //objeto también
 
-		var registro = { nombre: "Mori", apellido: "M."};
+		var registro = {
+			nombre: "Mori",
+			apellido: "M."
+		};
 		console.log(typeof registro); // objeto
 
 		var objeto = new Date;
 		console.log(typeof objeto);
 
-		var funcion = function function_name() { console.log("hola"); };
+		var funcion = function function_name() {
+			console.log("hola");
+		};
 		console.log(typeof funcion);
 
-		var sinDefinir ;
+		var sinDefinir;
 		console.log(typeof sinDefinir);
 
 		var nula = null; // Se considera objeto
 		console.log(typeof nula);
-
-
-
-
 	</script>
 </body>
+
 </html>
