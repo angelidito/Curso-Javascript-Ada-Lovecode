@@ -30,35 +30,46 @@
 
             document.write("</p>");
         }
-        fiboIter(103);
+        fiboIter(10);
 
+        // Comentamos porque si lo miro dentro de dos dias 
+        // me va a llevar más entenderlo que hacerlo de nuevo
+        // - pos: la posicion deseada
+        // - n: contador de números escritos
+        // - f_1 y f_2: son los numeros de fibonachi con subíndices
+        //              n-1 y n-2, respectivamente
+        // La llamada a la funcion debe hacerse como en la no recursiva:
+        // pasando sólo el parámetro de la posición.
+        // Pensé en crear una funcion auxiliar y que fuese ella 
+        // la recursvia, para evitar que se pudeiesen dar mal 
+        // los parámetros la primera vez, pero no es lo que se pedía.
+        function fiborRecur(pos = 0, n = 0, f_1 = 1, f_2 = 0) {
+            if (n == 0)
+                document.write("<p>");
 
-        function fiborRecur(pos = 0, n=0, f_1=1, f_2=0) {
-            
-
-
-            if (pos > 0 && n == 0) {
+            if (n == 0 && pos >= 0) {
                 document.write(0);
+                n++;
+                // Lo anido para que haga una comprobación menos,
+                // Ya que es recursiva la función, seguro que viene bien.
+                if (pos >= 1) {
+                    document.write(", 1");
+                    n++;
+                }
             }
-            if (pos > 1 && n == 0) {
-                document.write(", 1");
-            }
-            if( pos > 2 &&){
-                fiboR_aux(pos, 2, f_1, f_2);
-            }
-
-        }
-
-        function fibfiboR_auxoR(pos, n, f_1, f_2) {
+            if (pos >= 2 && n < pos + 1) {
                 var f_n = f_1 + f_2;
+                document.write("creckpoint");
                 document.write(", " + f_n);
-                f_2 = f_1;
-                f_1 = f_n;
-            if (pos>=f_n){
+                n++;
+                fiborRecur(pos, n, f_n, f_1);
             }
-            
+
+            document.write("</p>");
         }
-        fiborRecur(103);
+
+
+        fiborRecur(10);
     </script>
 </body>
 
