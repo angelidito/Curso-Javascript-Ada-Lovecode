@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Crea un script que pida una frase al usuario, y muestre el número de palabras que componen
+        // la frase. Si no hay ninguna, también debe indicarlo
+
+        var input = prompt("Escriba una frase a continuación");
+
+        // Quitamos los espacios del principio y lo dividimos por cada espacio
+        var frase = input.trim().split(" ");
+
+        // Contador
+        var palabras = 0;
+        frase.forEach(palabra => {
+            // asi evitamos contar palabras de más
+            if (palabra != "")
+                palabras++;
+        });
+        alert('La frase "' + input + '" tiene ' + palabras + " palabras.")
+    </script>
+</body>
+
+</html>

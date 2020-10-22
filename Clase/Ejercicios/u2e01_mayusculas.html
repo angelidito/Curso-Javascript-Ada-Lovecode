@@ -10,8 +10,15 @@
 <body>
     <script>
         // Tenemos un array con los días de la semana en minúsculas.
-        // Crea un script que, utilizando el array anterior, escriba una lista con los días de la semana con
-        // la primera letra en mayúsculas.
+        var dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
+        // Crea un script que, utilizando el array anterior, escriba una lista con los días de la semana con la primera letra en mayúsculas.            
+
+        dias.forEach(dia => {
+            document.write(dia[0].toUpperCase() + dia.slice(1) +"<br>")
+        });
+
+
+        
     </script>
 </body>
 
