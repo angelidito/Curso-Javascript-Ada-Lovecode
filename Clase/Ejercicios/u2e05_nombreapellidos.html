@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Crea un programa que pida al usuario su nombre y apellidos y muestre:
+        // 1. El tamaño del nombre más los apellidos (sin contar espacios).
+        // 2. La cadena en minúsculas y en mayúsculas.
+        // 3. Que divida el nombre y los apellidos y los muestre en 3 líneas, donde ponga Nombre: /
+        // Apellido 1: / Apellido 2:
+        // 4. Una propuesta de nombre de usuario, compuesto por la inicial del nombre, el primer apellido y la inicial del segundo apellido: ej. Para Laura Folgado Galache seríalfolgadog.
+        // 5. Una propuesta de nombre de usuario compuesto por las tres primeras letras del nombre y de los dos apellidos: ej. laufolga
+
+        var nombreCompleto = prompt("Introduzca nombre y apellidos:");
+
+        // quitamos espacios al principio y al final 
+        while (nombreCompleto.charAt("0") == " " || nombreCompleto.charAt(nombreCompleto.length - 1) == " ")
+            nombreCompleto = nombreCompleto.trim();
+
+        // y guardamos las componentes en un array
+        var info = nombreCompleto.split(" ");
+
+        document.write("El tamaño del nombre más los apellidos es de " + (nombreCompleto.length - info.length + 1) + ".<br>");
+
+        document.write(nombreCompleto+".<br>");
+
+    </script>
+</body>
+
+</html>
