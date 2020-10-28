@@ -19,17 +19,67 @@
 
         var nombreCompleto = prompt("Introduzca nombre y apellidos:");
 
-        // quitamos espacios al principio y al final 
-        while (nombreCompleto.charAt("0") == " " || nombreCompleto.charAt(nombreCompleto.length - 1) == " ")
-            nombreCompleto = nombreCompleto.trim();
+        // // quitamos espacios al principio y al final 
+        // while (nombreCompleto.charAt("0") == " " || nombreCompleto.charAt(nombreCompleto.length - 1) ==a " ")
+        //     nombreCompleto = nomanbreCompleto.trim();
 
-        // y guardamos las componentes en un array
+        // Guardamos las componentes en un array
         var info = nombreCompleto.split(" ");
 
-        document.write("El tamaño del nombre más los apellidos es de " + (nombreCompleto.length - info.length + 1) + ".<br>");
+        // 1. ya que hay espacios en el array, para calcular loq ue ocupa el nombre, pues restamos
+        document.write("El tamaño del nombre más los apellidos es de " + (nombreCompleto.length - info.length + 1) +
+            ".<br>");
 
-        document.write(nombreCompleto+".<br>");
+        // 2._________________________________________________
+        document.write("Nombre y apellidos: " + nombreCompleto + ".<br>");
 
+
+        // 3. _________________________________________________
+        var nombe = "",
+            apellido1 = "",
+            apellido2 = "";
+
+        // Voy a tener en cuenta que hay dos apellidos simples siempre
+        // y cero o más nombres
+        //     Simon Ceciliano Beniamin Marc Apellido2    
+
+
+        // document.write("checkpoint" + ".<br>");
+
+        // for (let i = info.length - 1; i >= 0; i--) {
+        //     const elem = info[i];
+        //     document.write("elem: '" + elem + "'.<br>");
+        // }
+
+        for (let i = info.length - 1; i >= 0; i--) {
+            const elem = info[i];
+
+
+            if (elem != "" && elem != " " && apellido2 == "") {
+                document.write("checkpoint apellido2 '" + elem + "'.<br>");
+                apellido2 = elem;
+            } else if (elem != "" && elem != " " && apellido1 == "") {
+                document.write("checkpoint apellido1 '" + elem + "'.<br>");
+                apellido1 = elem;
+            } else if (elem != "" && elem != " ") {
+                if (nombre == "") {
+                    document.write("nombre tremporañl '" + elem + "'.<br>");
+                    nombre = elem;
+                } else {
+                    document.write("nombre tremporañl '" + elem + "'.<br>");
+                    nombre = elem + nombre;
+                }
+                document.write("checkpoint nombre descartado '" + elem + "'.<br>");
+            }
+
+        }
+
+        document.write("checkpoint" + ".<br>");
+        document.write("Nombre: " + nombre + ".<br>");
+        document.write("Primer apellido: " + apellido1 + ".<br>");
+        document.write("Segundo apellido: " + apellido2 + ".<br>");
+
+        document.write("checkpoint" + ".<br>");
     </script>
 </body>
 
