@@ -10,15 +10,13 @@
 <body>
     <script>
         // Crea un programa que pida al usuario su nombre y apellidos y muestre:
-        // 1. El tamaño del nombre más los apellidos (sin contar espacios).
-        // 2. La cadena en minúsculas y en mayúsculas.
-        // 3. Que divida el nombre y los apellidos y los muestre en 3 líneas, donde ponga Nombre: /
-        // Apellido 1: / Apellido 2:
-        // 4. Una propuesta de nombre de usuario, compuesto por la inicial del nombre, el primer apellido y la inicial del segundo apellido: ej. Para Laura Folgado Galache seríalfolgadog.
-        // 5. Una propuesta de nombre de usuario compuesto por las tres primeras letras del nombre y de los dos apellidos: ej. laufolga
 
         var nombreCompleto = prompt("Introduzca nombre y apellidos:");
 
+        // 1. El tamaño del nombre más los apellidos (sin contar espacios).
+
+        // HE VISTO QUE ESTO O HACE FALTA (al menos en chrome)
+        // EL RESULTADO ES EL MISMO
         // // quitamos espacios al principio y al final 
         // while (nombreCompleto.charAt("0") == " " || nombreCompleto.charAt(nombreCompleto.length - 1) ==a " ")
         //     nombreCompleto = nomanbreCompleto.trim();
@@ -26,60 +24,62 @@
         // Guardamos las componentes en un array
         var info = nombreCompleto.split(" ");
 
-        // 1. ya que hay espacios en el array, para calcular loq ue ocupa el nombre, pues restamos
+        // ya que hay espacios en el array, para calcular loq ue ocupa el nombre, pues restamos
         document.write("El tamaño del nombre más los apellidos es de " + (nombreCompleto.length - info.length + 1) +
             ".<br>");
 
-        // 2._________________________________________________
-        document.write("Nombre y apellidos: " + nombreCompleto + ".<br>");
+
+        // // 2. La cadena en minúsculas y en mayúsculas.
+
+        document.write("Nombre y apellidos: " + nombreCompleto + ".<br><br>");
 
 
-        // 3. _________________________________________________
-        var nombe = "",
-            apellido1 = "",
-            apellido2 = "";
+        // 3. Que divida el nombre y los apellidos y los muestre en 3 líneas, donde ponga 
+        //     Nombre: 
+        // Apellido 1: 
+        // Apellido 2:
+
+        var nombre = "";
+        var apellido1 = "";
+        var apellido2 = "";
+
 
         // Voy a tener en cuenta que hay dos apellidos simples siempre
-        // y cero o más nombres
-        //     Simon Ceciliano Beniamin Marc Apellido2    
-
-
-        // document.write("checkpoint" + ".<br>");
-
-        // for (let i = info.length - 1; i >= 0; i--) {
-        //     const elem = info[i];
-        //     document.write("elem: '" + elem + "'.<br>");
-        // }
+        // y CERO O MÁS nombres en españa
 
         for (let i = info.length - 1; i >= 0; i--) {
             const elem = info[i];
 
-
-            if (elem != "" && elem != " " && apellido2 == "") {
-                document.write("checkpoint apellido2 '" + elem + "'.<br>");
+            if (elem != "" && elem != " " && apellido2 == "")
                 apellido2 = elem;
-            } else if (elem != "" && elem != " " && apellido1 == "") {
-                document.write("checkpoint apellido1 '" + elem + "'.<br>");
+            else if (elem != "" && elem != " " && apellido1 == "")
                 apellido1 = elem;
-            } else if (elem != "" && elem != " ") {
-                if (nombre == "") {
-                    document.write("nombre tremporañl '" + elem + "'.<br>");
+            else if (elem != "" && elem != " ")
+                if (nombre == "")
                     nombre = elem;
-                } else {
-                    document.write("nombre tremporañl '" + elem + "'.<br>");
-                    nombre = elem + nombre;
-                }
-                document.write("checkpoint nombre descartado '" + elem + "'.<br>");
-            }
+                else
+                    nombre = elem + " " + nombre;
 
         }
 
-        document.write("checkpoint" + ".<br>");
-        document.write("Nombre: " + nombre + ".<br>");
-        document.write("Primer apellido: " + apellido1 + ".<br>");
-        document.write("Segundo apellido: " + apellido2 + ".<br>");
+        document.write("&nbsp;&nbsp;&nbsp;&nbsp;Nombre: " + nombre + ".<br>");
+        document.write("Apellido 1: " + apellido1 + ".<br>");
+        document.write("Apellido 2: " + apellido2 + ".<br>");
 
-        document.write("checkpoint" + ".<br>");
+
+        // 4.Una propuesta de nombre de usuario, compuesto por la inicial del nombre, el primer apellido y la inicial del segundo apellido: ej. Para Laura Folgado Galache sería lfolgadog.
+
+        var propuesta = nombre.charAt(0) + apellido1 + apellido2.charAt(0);
+        document.write("Propuesta de usuario: " + propuesta + ".<br>");
+
+
+        // 5.Una propuesta de nombre de usuario compuesto por las tres primeras letras del nombre y de los dos apellidos: ej. laufolgal.
+        var propuesta = nombre.substr(0,3) + apellido1.substr(0,2) + apellido2.substr(0,2);
+        document.write("Propuesta de usuario: " + propuesta + ".<br>");
+
+        // Posdata:
+        // Sos cosas. Primero: que si das alt + z en VS Code se desdobla el texto (no se alargan las lineas más a la derecha de lo que puedes ver).
+        // Segundo: sé que me he complicado quizá demasiado en la primera parte, pero quería probar a usar un algoritmo distinto al que usamos en PHP para un ejercicio similar... Por hacerlo más entretenido más que nada.
     </script>
 </body>
 

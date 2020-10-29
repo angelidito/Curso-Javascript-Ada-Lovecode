@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Crea una función para comprobar si un DNI o NIE es correcto, es decir, que contiene 8 dígitos y una letra, y que la letra es correcta.
+        // En el caso del DNI:
+        // ▪ Se toma el nº del DNI
+        // ▪ Se divide por 23.
+        // ▪ Cogemos el resto (tiene que ser un número comprendido entre el 0 y el 22)
+        // ▪ A cada número entre el 0 y el 22 le corresponde una letra de control de acuerdo con la
+        // tabla de asignación de abajo:
+        // 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22
+        // T R W A G M Y F P D  X  B  N  J  Z  S  Q  V  H  L  C  K  E
+        // Para el NIE: tienen una letra (X, Y, Z), 7 números y una letra de control. Para el cálculo de la
+        // letra de control, se sustituyen las letras iniciales (X, Y o Z) por los siguientes valores:
+        // ▪ X → 0
+        // ▪ Y → 1
+        // ▪ Z → 2
+        // y se hacen los mismos pasos que para el DNI.
+        // Ej. de documentos válidos:
+        // • DNI: 56221526G, 50127621H, 76069822J, 73126034H
+        // • NIF: 12313207L, 74997547K, 98319066T, 70454006S
+        // • NIE: Y6478436V, X5997109C, Y7492239A, X3412471F
+    </script>
+</body>
+
+</html>
