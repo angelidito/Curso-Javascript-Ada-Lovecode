@@ -16,10 +16,14 @@
 
         var ganadores = [0, 0, 0, 0, 0, 0];
         for (let i = 0; i < ganadores.length; i++) {
-            var num = Math.ceil(Math.random()*50);
+            var num = Math.ceil(Math.random() * 50);
+
+            if (ganadores.indexOf(num) != -1) {
+                ganadores[i]=num;
+            }
         }
         alert(ganadores.indexOf(1));
     </script>
 </body>
 
-</html>
+</html> 
