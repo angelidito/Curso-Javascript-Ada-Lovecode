@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Crea un programa que muestre la fecha actual en diferentes formatos, según el valor que meta el usuario por parámetro:
+        // 1. 17/02/2016
+        // 2. Miércoles, 17 de febrero de 2016.
+        // 3. Wednesday, February 17, 2016.
+        do {
+            var op = prompt(
+                "Escoja un formato para mostrar la fecha de hoy:\n1. 17/02/2016\n2. Miércoles, 17 de febrero de 2016.\n3. Wednesday, February 17, 2016"
+            );
+
+            var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado", ];
+
+            var meses = [
+                "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "obtubre",
+                "noviembre", "diciembre"
+            ];
+
+            switch (op) {
+                case "1":
+                    alert(num.toExponential(0));
+                    break;
+                case "2":
+                    alert(num.toFixed(4));
+                    break;
+                case "3":
+                    alert(num.toString(2));
+                    break;
+            }
+        } while (op != null)
+    </script>
+</body>
+
+</html>
