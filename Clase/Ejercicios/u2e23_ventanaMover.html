@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const horizontal = () => {
+            var nuevasX;
+            do {
+                nuevasX = Math.random() * 100;
+            } while (nuevasX > 200 || nuevasX < 0);
+            return nuevasX;
+        };
+
+        const vertical = () => {
+            var nuevasY;
+            do {
+                nuevasY = Math.random() * 100;
+            } while (nuevasY > 100 || nuevasY < 0);
+            return nuevasY;
+        };
+
+        const apagarIntervalo = (intervalos) => {
+            clearInterval(intervalos);
+            miVentana.close();
+        };
+
+        miVentana = window.open('', '', 'width=200,height=100');
+        miVentana.document.write(
+            '<p id="texto">La coordenada X: ' +
+            window.screenX.toFixed(3) +
+            'px<br/> La coordenada Y: ' +
+            window.screenY.toFixed(3) +
+            'px</p>'
+        );
+        var intervalo = setInterval(moverVentana, 1000, 'miVentana');
+        var temporizador = setTimeout(apagarIntervalo, 60000, 'intervalo');
+
+        function moverVentana(ventana) {
+            var x = horizontal();
+            var y = vertical();
+            miVentana.document.getElementById('texto').innerHTML =
+                'La coordenada X: ' +
+                x.toFixed(3) +
+                'px<br/> La coordenada Y: ' +
+                y.toFixed(3) +
+                'px';
+            miVentana.moveTo(x, y);
+        }
+    </script>
+</body>
+
+</html>

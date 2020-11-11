@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Definir una función que determine si la cadena de texto que se le pasa como parámetro es un palíndromo, es decir, si se lee de la misma forma desde la izquierda y desde la derecha.
+        // Ejemplo de palíndromo: “La ruta nos aportó otro paso natural”.
+        // ** Truco: quitar los espacios a la cadena, convertir la cadena en un array de caracteres y utilizar el método .reverse() de los arrays, que cambia el orden de los elementos de un array
+
+        function esPalindromo(frase = "") {
+
+            // Pasamos a minúsculas
+            frase = frase.toLocaleLowerCase();
+
+            // Quitamos las tildes agudas
+            frase = frase.normalize("NFD").replace(/[\u0301]/g, "");
+
+            for (let i = 0, j = frase.length - 1; i < j; i++, j--) {
+
+                while (frase.charAt(i) == " " & i < j) i++;
+
+                while (frase.charAt(j) == " " & i < j) j--;
+
+                if (frase.charAt(i) != frase.charAt(j)) return false;
+
+            }
+
+            return true;
+        }
+        // Vaya, acabo de leer el truco del comenatario de arriba.
+        // Así hubiese sido al menos tan divertido como ha sido mi solución.
+
+        function alertPalindromía(frase) {
+
+            if (esPalindromo(frase)) alert("¡GUAU! ¡¡¡''" + frase + "'' ES PALINDOMO!!!");
+
+            else alert('"' + frase + '" no es palindromo :((((((((((((((');
+        }
+
+
+        var frases = ["     A  Mi    mE  mIma ","La ruta nos aportó otro paso natural"," UN ÑU ", 'Sugus', "No se me ocurren más casos límite, a parte del resto de signos diacríticos, pero me daba pereza tener que excluir la vigulila de la ñ..."];
+        
+        frases.forEach(frase => {
+            alertPalindromía(frase);
+        });
+
+    </script>
+</body>
+
+</html>

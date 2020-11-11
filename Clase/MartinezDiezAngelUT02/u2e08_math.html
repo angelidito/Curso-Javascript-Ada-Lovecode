@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Crea un programa que pida al usuario que elija una opción del siguiente menú:
+        // 1. Potencia.
+        // 2. Raíz ¿cuadrada?.
+        // 3. Redondeo.
+        // 4. Trigonometría.
+
+
+        do {
+            var op = prompt(
+                "Elija una opción del siguiente menú:\n1. Potencia.\n 2. Raíz cuadrada.\n 3. Redondeo.\n 4. Trigonometría."
+            );
+
+            switch (op) {
+                case "1":
+                    // Si el usuario introduce 1, se le deberá pedir una base y un exponente 
+                    // y se mostrará el resultado en pantalla(La potencia de X elevado a Y es: )
+                    do {
+                        var x = prompt("Introduzca el valor de la base:");
+                    } while (isNaN(x));
+                    do {
+                        var y = prompt("Introduzca el valor del exponente:");
+                    } while (isNaN(y));
+                    alert("La potencia de " + x + " elevado a " + y + " es: " + x ** y);
+
+                    break;
+
+                case "2":
+                    // Si el usuario introduce 2, se le pedirá un número (no negativo) y se mostrará el resultado en pantalla (La raíz de X es: )
+                    do {
+                        var num = prompt("Introduzca un número no negativo para obtener su raiz cuadrada:");
+                        if (!isNaN(num) && num > 0)
+                            alert("La raíz de X es: " + Math.sqrt(num))
+                    } while (isNaN(num) || num < 0);
+
+                    break;
+                case "3":
+                    // Si el usuario introduce 3, se le pedirá un decimal por pantalla y se mostrará el redondeo al entero más próximo, al alta y a la baja.
+                    do {
+                        var num = prompt("Introduzca un número decimal para ser redondeado:");
+                        if (!isNaN(num)) {
+                            alert("Entero más proximo: " + Math.round(num) + "\nRedondeo al alza: " + Math.ceil(num) +
+                                "\nRedondeo a la baja: " + Math.floor(num));
+                        }
+                    } while (isNaN(num));
+
+                    break;
+
+                case "4":
+                    // Si el usuario introduce 4, se le pedirá un ángulo (entre 0 y 360) y se le mostrarán por pantalla los v alores trigonométricos del seno, coseno y tangente.
+                    do {
+                        var num = prompt("Introduzca un un ángulo entre 0 y 360:");
+                        if (!isNaN(num)) {
+                            alert("Seno: " + Math.sin(num) + "\nCoseno: " + Math.cos(num) +
+                                "\nTangente: " + Math.tan(num));
+                        }
+                    } while (isNaN(num));
+
+                    break;
+            }
+
+        } while (op != null);
+    </script>
+</body>
+
+</html>

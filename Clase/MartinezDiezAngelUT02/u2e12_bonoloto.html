@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** Devuelve un string con el listado 
+         * de los elemtentos de un array
+         * con el formato 
+         * "elemento, elemento, [...], elemento y elemento."
+         */
+        function listarElementos(array =[null]) {
+            var mensaje = "";
+            for (let i = 0; i < array.length; i++) {
+                mensaje += array[i];
+                if (i == array.length - 1)
+                    mensaje += ".";
+                else if (i == array.length - 2)
+                    mensaje += " y ";
+                else
+                    mensaje += ", ";
+            }
+            return mensaje;
+        }
+
+        // Crea un programa que genere los números ganadores de la bonoloto: 
+        // son 6 números entre 1 y 50 
+        // y el complementario entre el 1 y el 9. 
+        // Además, los números no se pueden repetir.
+
+        var ganadores = [0, 0, 0, 0, 0, 0];
+        var complementario = 0;
+
+        for (let i = 0; i < ganadores.length; i++) {
+            var num = Math.ceil(Math.random() * 50);
+
+            if (ganadores.indexOf(num) == -1)
+                ganadores[i] = num;
+            else
+                i--;
+
+        }
+
+        complementario = Math.ceil(Math.random() * 10);
+
+        var mensaje = "Los números ganadores de la bonoloto son: ";
+
+        mensaje += listarElementos(ganadores);
+
+        mensaje += "<br>El complementario es el número " + complementario + ".";
+        
+        document.write(mensaje);
+    </script>
+</body>
+
+</html>
