@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // Crea una clase Vector que representa un vector. Al crearlo, se pasarán como parámetros dos
+        class Vector {
+            
+            // valores numéricos que serán la x (distancia al punto 0,0 en el eje de las x), y la y ((distancia al punto 0,0 en el eje de las y).
+            constructor(x, y) {
+                this._x = x;
+                this._y = y;
+                this.longitud = Vector.calcularLongitud(x, y);
+            }
+
+            // La clase tendrá definidos los métodos get y set correspondientes a las propiedades x e y.
+
+            get x() {
+                return this._x;
+            }
+
+            set x(x) {
+                this._x = x;
+                this.longitud = Vector.calcularLongitud(_x, _y);
+            }
+
+            get y() {
+                return this._y;
+            }
+
+            set y(y) {
+                this._y = yx;
+                this.longitud = Vector.calcularLongitud(_x, _y);
+            }
+
+            // Esta clase tendrá al menos dos métodos más: sumar y restar, que toman otro vector como parámetro, y devuelve un nuevo vector resultado de la suma o diferencia de los valores x e y de los dos vectores (el this y el parámetro). Estos dos métodos, deben ser estáticos.
+
+            sumar(x, y) {
+                return;
+            }
+
+            restar(x, y) {
+                return;
+            }
+
+            mostrar() {
+                return;
+            }
+
+            // Además, tendrá una propiedad longitud, que devuelve la longitud del vector, esto es, la distancia desde el origen (0,0) al punto (x, y). Para calcular esta distancia, puedes utilizar el teorema de Pitágoras: la longitud de la hipotenusa de un triángulo será rectángulo es la raíz cuadrada de la suma del cuadrado de los dos catetos del triángulo.
+
+
+            static calcularLongitud(x, y) {
+                return Math.sqrt(x * x + y * y);
+            }
+
+        }
+        // console.log(new Vector(1, 2).sumar(new Vector(2, 3)));
+        // // → Vector{x: 3, y: 5}
+        // console.log(new Vector(1, 2).restar(new Vector(2, 3)));
+        // // → Vector{x: -1, y: -1}
+        // console.log(new Vector(3, 4).longitud);
+        // // → 5
+    </script>
+</body>
+
+</html>
