@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Desarrollo en entorno cliente</title>
+	</head>
+	<body>
+		<p id="texto-js"></p>
+		<script>
+			let cuenta = {
+				titular: 'Alex',
+				saldo: 0,
+			};
+
+			function ingresar(cantidad) {
+				if (cantidad > 0) {
+					cuenta.saldo += cantidad;
+					document.getElementById('texto-js').innerHTML =
+						'El saldo agregado es : ' + cantidad + ' &euro; <br/>';
+				} else {
+					console.log('Usa la función extraer');
+				}
+			}
+
+			ingresar(500);
+
+			function extraer(cantidad) {
+				cuenta.saldo -= cantidad;
+				document.getElementById('texto-js').innerHTML +=
+					'El saldo restado es : ' + cantidad + ' &euro; <br/>';
+			}
+
+			extraer(300);
+
+			function informar() {
+				document.getElementById('texto-js').innerHTML +=
+					'El titular de la cuenta es : ' +
+					cuenta.titular +
+					' y el saldo actual es de : ' +
+					cuenta.saldo +
+					' &euro; <br/>';
+			}
+
+			informar();
+
+			cuenta.saldoMaximo = 1000;
+
+			document.getElementById('texto-js').innerHTML +=
+				'Se ha añadido la propiedad ' +
+				Object.keys(cuenta)[2] +
+				' con valor inicial ' +
+				cuenta.saldoMaximo +
+				' &euro; <br/>';
+
+			let hoy = new Date();
+			cuenta.fechaApertura =
+				hoy.getDate() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getFullYear();
+
+			document.getElementById('texto-js').innerHTML +=
+				'Se ha añadido la propiedad ' +
+				Object.keys(cuenta)[3] +
+				' con valor inicial ' +
+				cuenta.fechaApertura +
+				'<br/>';
+
+			delete cuenta.saldoMaximo;
+
+			if (cuenta.saldoMaximo == undefined) {
+				document.getElementById('texto-js').innerHTML +=
+					'Se ha eliminado la propiedad saldoMaximo <br/>';
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Objetos del navegador. Window</title>
+	</head>
+
+	<body>
+		<div id="ventana"></div>
+		<div>
+			<button onclick="crearVentana()">Crear ventana</button>
+			<button onclick="cerrarVentana()">Cerrar ventana</button>
+			<button onclick="enfocar()">Enfocar ventana</button>
+			<button onclick="moverA100x()">Mover a 100x100</button>
+			<button onclick="moverVentana({left: -10})">Mover ventana 10px a la izquierda</button>
+			<button onclick="moverVentana({left: 10})">Mover ventana 10px a la derecha</button>
+			<button onclick="moverVentana({top: -10})">Mover ventana 10px arriba</button>
+			<button onclick="moverVentana({top: 10})">Mover ventana 10px abajo</button>
+			<button onclick="restaurarTamano()">Restaurar tamaño</button>
+			<button onclick="cambiarTamano({left:10, top:10})">Aumentar tamaño</button>
+			<button onclick="cambiarTamano({left:-10, top:-10})">Disminuir tamaño</button>
+			<button onclick="deslizar({top: 10})">Bajar</button>
+			<button onclick="deslizar({top: -10})">Subir</button>
+		</div>
+		<script>
+			function comprobarVentana() {
+				if (miVentana == undefined || miVentana.closed) {
+					alert('No existe ninguna ventana!');
+					return false;
+				} else {
+					return true;
+				}
+			}
+
+			window.name = 'Mi ventana';
+			var texto = '';
+			texto += '<br/>Nombre: ' + window.name;
+			texto += '<br/>Ancho externo: ' + window.outerWidth;
+			texto += '<br/>Alto externo: ' + window.outerHeight;
+			texto += '<br/>Ancho interno: ' + window.innerWidth;
+			texto += '<br/>Alto interno: ' + window.innerHeight;
+			texto += '<br/>Scroll horizontal: ' + window.pageXOffset;
+			texto += '<br/>Scroll vertical: ' + window.pageYOffset;
+			texto += '<br/>Distancia desde la izquierda: ' + window.screenX;
+			texto += '<br/>Distancia desde arriba: ' + window.screenY;
+
+			document.getElementById('ventana').innerHTML = texto;
+
+			var miVentana;
+
+			function crearVentana() {
+				miVentana = window.open('', '', 'width=200,height=100');
+				miVentana.document.write('<h1>Mnombre del iframe.el método .open(). Name sería el nombre del iframe.na</h1>');
+			}
+
+			function cerrarVentana() {
+				if (comprobarVentana()) {
+					miVentana.close();
+				}
+			}
+
+			function enfocar() {
+				if (comprobarVentana()) {
+					miVentana.focus();
+				}
+			}
+
+			function moverA100x() {
+				if (comprobarVentana()) {
+					miVentana.moveTo(100, 100);
+					miVentana.focus();
+				}
+			}
+
+			function moverVentana(coords) {
+				if (comprobarVentana()) {
+					miVentana.moveBy(coords.left ?? 0, coords.top ?? 0);
+					enfocar();
+				}
+			}
+
+			function restaurarTamano() {
+				if (comprobarVentana()) {
+					miVentana.resizeTo(100, 100);
+				}
+			}
+
+			function cambiarTamano(size) {
+				if (comprobarVentana()) {
+					miVentana.resizeBy(size.left ?? 0, size.top ?? 0);
+					enfocar();
+				}
+			}
+
+			function deslizar(scroll) {
+				if (comprobarVentana()) {
+					miVentana.scrollBy(scroll);
+					enfocar();
+				}
+			}
+		</script>
+	</body>
+</html>

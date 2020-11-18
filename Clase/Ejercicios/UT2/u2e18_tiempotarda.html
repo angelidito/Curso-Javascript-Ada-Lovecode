@@ -9,7 +9,8 @@
 
 <body>
     <script>
-        // Utiliza las dos formas de calcular la serie de Fibonacci, que has definido en los ejercicios anteriores. Calcula y muestra el tiempo que tarda una y otra.
+        // Utiliza las dos formas de calcular la serie de Fibonacci, 
+        // que has definido en los ejercicios anteriores. 
 
         function fiboIter(pos = 0) {
             let f_2 = 0;
@@ -60,16 +61,21 @@
         }
 
 
+        // Calcula y muestra el tiempo que tarda una y otra.
+        
         var t_aux, t_iter, t_recur;
 
+
+
         t_aux = Date.now();
-        fiboIter(10000);
+        fiborRecur(1000);
+        t_recur = Date.now() - t_aux;
+
+        t_aux = Date.now();
+        fiboIter(1000);
         t_iter = Date.now() - t_aux;
 
 
-        t_aux = Date.now();
-        fiborRecur(10000);
-        t_recur = Date.now() - t_aux;
 
         alert("La forma iterativa tarda " +t_iter+" milisegundos y la forma recursiva "+t_recur+ ".");
 

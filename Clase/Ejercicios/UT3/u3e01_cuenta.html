@@ -13,20 +13,30 @@
         //     .•Una propiedad titular con el valor "Alex"
         //     .•Una propiedad saldo, teniendo como valor inicial 0.
 
-        var cuenta = {
+        let cuenta = {
             titular: "Alex",
             saldo: 0
         };
 
         // Crea funciones que nos permitan realizar las siguientes operaciones: 
         // .• ingresar() que permita añadir dinero a la cuenta, pasando la cantidad como parámetro
-        
-        cuenta.prototipe
+        function ingresar(n) {
+            cuenta.saldo += n;
+        }
         // .•extraer() que permita retirar la cantidad pasada como parámetro
         // .•informar() que retorne la información del estado de la cuenta.
+
         // A continuación,
         // añade al objeto las propiedades saldoMáximo con valor inicial 1000 y fechaApertura con valor inicial a la fecha actual
+        cuenta.saldomaximo=1000;
+        cuenta.hora=new Date().toLocaleTimeString();
+        // alert(cuenta.hora);
+        cuenta.fecha=new Date().toLocaleDateString();
+        // alert(cuenta.fecha);
+
+
         //     .Por último, elimina la propiedad saldoMáximo.
+        delete cuenta.saldomaximo;
         // Todas las operaciones que se realicen se irán mostrando en la página.
     </script>
 </body>

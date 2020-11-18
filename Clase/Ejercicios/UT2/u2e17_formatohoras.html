@@ -19,9 +19,9 @@
 
             var fecha = new Date();
 
-            var hh = fecha.getHours();
-            var mm = fecha.getMinutes();
-            var ss = fecha.getSeconds();
+            var hh = fecha.getHours().toString();
+            var mm = fecha.getMinutes().toString();
+            var ss = fecha.getSeconds().toString();
 
             // Arreglos
             if (hh.length == 1 && parseInt(hh) < 10)

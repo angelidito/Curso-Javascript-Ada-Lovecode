@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="reloj"></p>
+
+    <script>
+        function reloj(op) {
+            var fecha = new Date();
+
+            var hh = fecha.getHours().toString();
+            var mm = fecha.getMinutes().toString();
+            var ss = fecha.getSeconds().toString();
+
+            // Arreglos
+            if (hh.length == 1 && parseInt(hh) < 10)
+                hh = "0".concat(hh);
+            if (mm.length == 1 && parseInt(mm) < 10)
+                mm = "0".concat(mm);
+            if (ss.length == 1 && parseInt(ss) < 10)
+                ss = "0".concat(ss);
+
+            var formato = "";
+
+            // switch (op) {
+
+            //     case 1:
+            // 1. 14:35:07 (hora detallada con minutos y segundos)
+            formato = hh + ":" + mm + ":" + ss;
+            //         break;
+
+            //     case 2:
+            //         // 2. 02:35 PM o 02:35:07 AM (hora con minutos y AM o PM según sea antes o después del medio día).
+            //         hh = hh > 12 ? hh - 12 : hh;
+            //         var ampm = hh >= 12 && hh != 24 ? "AM" : "PM";
+            //         formato = hh + ":" + mm + ":" + ss + " " + ampm;
+            //         break;
+
+            // }
+            if (formato != "")
+                document.getElementById("reloj").innerHTML = (formato);
+
+            setInterval(reloj, 1000, 2);
+        }
+
+        reloj(1);
+    </script>
+</body>
+
+</html>
