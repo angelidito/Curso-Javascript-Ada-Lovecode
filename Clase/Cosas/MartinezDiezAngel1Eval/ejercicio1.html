@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1 de Angel Mori Martinez Diez</title>
+</head>
+
+<body>
+    <h1> Ejercicio 1 <br>Por Ángel Mori Martínez Díez</h1>
+    <h2>Mira la consola</h2>
+    <script>
+        // 
+        function suma() {
+
+            // Local e inicializada a 0.
+            var suma = 0;
+
+            // El array arguments contiene los argumentos que se le pasen a la función.
+            // Los recorremos...
+            for (let i = 0; i < arguments.length; i++) {
+                const elem = arguments[i];
+
+                // Si es un número o un objeto, lo suma. 
+                // (Por ejemplo, e).
+                if (!isNaN(elem)) {
+                    // El objeto Date pasaba el filtro 
+                    // de !isNaN(elem) y luego daba 
+                    // NaN al hacer la suma...
+                    //
+                    // En vez de añadir && !(elem instanceof Object) 
+                    // al if de arriba, creo este, ya que eso no habria
+                    // permitido objetos de clase Number.
+                    if (!isNaN(suma + parseInt(elem))) {
+                        suma += parseInt(elem);
+                    }
+                }
+            }
+
+            // Seguira siendo 0 si a pasado por el bucle o por el if
+            return suma;
+        }
+
+
+        // Vamos con las prubas
+
+        // Prueba simple con números
+        console.log('suma(1,2,2,3,4,3) debería dar 15 y el retultado es: ' +
+            suma(1, 2, 2, 3, 4, 3));
+
+        // Prueba simple con números negativos también
+        console.log('suma(11, -1) debería dar 10 y el retultado es: ' +
+            suma(11, -1));
+
+        // Mezclamos números con números en string y más cosas
+        console.log('suma(2, "3", "h0la", new Date(), suma, new Number(5)) debería dar 10 y el retultado es: ' +
+            suma(2, "3", "h0la", new Date(), suma, new Number(5)));
+
+        // Sin parametros
+        console.log('suma() debería dar 0 y el retultado es: ' +
+            suma());
+
+        // Números, números en string negativos y más cosas
+        console.log(
+            'suma(696, "-30", true, "No voy a sacar un diez porque me faltaron 30 segundos para acabar el test",  {nombre: "", apellido: "", edad: 18}, "Bueno, por eso y más cosas") debería dar 666 y el retultado es: ' +
+            suma(696, -30, true, "No voy a sacar un diez porque me faltaron 30 segundos para acabar el test", {
+                nombre: "",
+                apellido: "",
+                edad: 18
+            }, "Bueno, por eso y más cosas"));
+    </script>
+</body>
+
+</html>

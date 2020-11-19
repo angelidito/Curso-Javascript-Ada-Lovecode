@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 de Angel Mori Martinez Diez</title>
+</head>
+
+<body>
+    <h3> Ejercicio 3 <br>Por Ángel Mori Martínez Díez</h3>
+
+    <script>
+        // Vamos primero con Persona
+        class Persona {
+            // Constructor
+            constructor(nombre, edad, genero) {
+                this.nombre = nombre;
+                this.edad = edad;
+                this.genero = genero;
+            }
+            // Mostrar detalles por pantalla
+            obtDetalles() {
+                document.writeln(
+                    "<p>Nombre: " + this.nombre +
+                    "<br>Edad: " + this.edad +
+                    "<br>Genero: " + this.genero + "</p>"
+                );
+            }
+        }
+
+        // Construimos y comprobamos
+        var persona1 = new Persona("Ángel Mori", 18, "macho");
+        persona1.obtDetalles();
+
+
+
+
+        // Vamos ahora con Estudiante
+        class Estudiante extends Persona {
+            // Constructor
+            constructor(nombre, edad, genero, curso, ciclo) {
+                super(nombre, edad, genero);
+                this.curso = curso;
+                this.ciclo = ciclo;
+            }
+            // Mostrar detalles por pantalla
+            obtDetalles() {
+                document.writeln(
+                    "<p>Nombre: " + this.nombre +
+                    "<br>Edad: " + this.edad +
+                    "<br>Genero: " + this.genero +
+                    "<br>Curso: " + this.curso +
+                    "<br>Ciclo: " + this.ciclo + "</p>"
+                );
+            }
+        }
+
+        // Construimos y comprobamos
+        var estudiante1 = new Estudiante("Simón", 13, "varón", "2º", "DAW");
+        estudiante1.obtDetalles();
+
+
+
+
+        // Acabamos con Profesor
+        class Profesor extends Persona {
+            // Constructor
+            constructor(nombre, edad, genero, modGrupo) {
+                super(nombre, edad, genero);
+                this.modGrupo = modGrupo;
+            }
+            // Mostrar detalles por pantalla
+            obtDetalles() {
+                document.writeln(
+                    "<p>Nombre: " + this.nombre +
+                    "<br>Edad: " + this.edad +
+                    "<br>Genero: " + this.genero +
+                    "<br>Módulo: " + this.modGrupo.modulo +
+                    "<br>Grupo: " + this.modGrupo.grupo + "</p>"
+                );
+            }
+        }
+
+        // Construimos y comprobamos
+        var profesor1 = new Profesor("Ana Juliana", 47, "hembra", {
+            modulo: "Empresa",
+            grupo: "equipo A"
+        });
+        profesor1.obtDetalles();
+    </script>
+</body>
+
+</html>

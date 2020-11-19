@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 de Angel Mori Martinez Diez</title>
+</head>
+
+<body>
+    <h3> Ejercicio 2 <br>Por Ángel Mori Martínez Díez</h3>
+
+    <h1 id="aviso">¿Cuántos días quedan para las vacaciones Navidad?</h1>
+    <h1 id="hurra">¿Cuántos?</h1>
+    <script>
+        function mostrarAviso() {
+
+            //Fechas 
+            var ahora = new Date();
+            var vacaciones = new Date("2020-12-22T14:20:00");
+
+            // Diferencia de fechas
+            var diferencia = vacaciones - ahora; // En milisegundos
+
+            // Días
+            var dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            // Restamos los dias a la diferencia
+            diferencia -= dias * 1000 * 60 * 60 * 24;
+
+            // Horas
+            horas = Math.floor(diferencia / (1000 * 60 * 60));
+            // Restamos las horas a la diferencia
+            diferencia -= horas * 1000 * 60 * 60;
+
+            // Minutos
+            minutos = Math.floor(diferencia / (1000 * 60));
+            // Restamos los minutos a la diferencia
+            diferencia -= minutos * 1000 * 60;
+
+            // Segundos
+            segundos = Math.floor(diferencia / (1000));
+
+
+            // Texto de aviso
+            var aviso = "Quedan " +
+                dias + " dias, " +
+                horas + " horas, " +
+                minutos + " minutos y " +
+                segundos + " segundos " +
+                "para las vacaciones Navidad.<br>";
+
+
+            // Mostramos por pantalla
+            document.getElementById("aviso").innerHTML = aviso;
+
+        }
+
+        // Ejecutamos la función cada segundo indefinidamente
+        var intervalo = setInterval(mostrarAviso, 1000);
+
+
+
+        // Esto es para hacerlo más divertido:
+        // Variable global
+        repeticiones = 0;
+
+        function hurra() {
+            var hurra;
+            repeticiones++;
+            if (repeticiones % 2 == 0)
+                hurra = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¡Hurra!";
+            else
+                hurra= "¡Hip! ¡Hip!";
+            document.getElementById("hurra").innerHTML = hurra;
+        }
+        var hiphip = setInterval(hurra, 1342);
+    </script>
+</body>
+
+</html>
