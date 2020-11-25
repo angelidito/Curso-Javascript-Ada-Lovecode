@@ -9,6 +9,12 @@
 
 <body>
     <script>
+        //  // // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // // // //
+        // Todas las operaciones que se realicen se irán mostrando en la página.
+        //  // // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // // // //
+
         // Escribe un programa que cree un objeto "cuenta"  a partir de un literal con las siguientes propiedades: 
         //     .•Una propiedad titular con el valor "Alex"
         //     .•Una propiedad saldo, teniendo como valor inicial 0.
@@ -18,26 +24,43 @@
             saldo: 0
         };
 
+        console.log("Titular: " + cuenta.titular + "\nSaldo: " + cuenta.saldo)
+
         // Crea funciones que nos permitan realizar las siguientes operaciones: 
         // .• ingresar() que permita añadir dinero a la cuenta, pasando la cantidad como parámetro
         function ingresar(n) {
             cuenta.saldo += n;
         }
+
+        ingresar(10);
+        console.log("Ingresamos 10.\nSaldo: " + cuenta.saldo)
+
         // .•extraer() que permita retirar la cantidad pasada como parámetro
+        function extraer(n) {
+            cuenta.saldo -= n;
+        }
+
+        extraer(3);
+        console.log("Retiramos 3.\nSaldo: " + cuenta.saldo)
+
         // .•informar() que retorne la información del estado de la cuenta.
+        function informar() {
+            return cuenta.saldo;
+        }
+        console.log("Saldo con función informar: " + informar())
 
         // A continuación,
-        // añade al objeto las propiedades saldoMáximo con valor inicial 1000 y fechaApertura con valor inicial a la fecha actual
-        cuenta.saldomaximo=1000;
-        cuenta.hora=new Date().toLocaleTimeString();
-        // alert(cuenta.hora);
-        cuenta.fecha=new Date().toLocaleDateString();
-        // alert(cuenta.fecha);
+        // añade al objeto las propiedades saldoMáximo con valor inicial 1000 
+        cuenta.saldomaximo = 1000;
+        console.log("cuenta.saldomaximo: " + cuenta.saldomaximo)
+        // y fechaApertura con valor inicial a la fecha actual
+        cuenta.fechaApertura = new Date().toLocaleDateString();
+        console.log("cuenta.fechaApertura: " + cuenta.fechaApertura)
 
 
-        //     .Por último, elimina la propiedad saldoMáximo.
+        // .Por último, elimina la propiedad saldoMáximo.
         delete cuenta.saldomaximo;
-        // Todas las operaciones que se realicen se irán mostrando en la página.
+        console.log("Borramos saldomaximo.\ncuenta.saldomaximo: " + cuenta.saldomaximo)
     </script>
 </body>
 
