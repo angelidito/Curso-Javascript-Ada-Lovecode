@@ -16,19 +16,42 @@
         // • Tipo de música (podrá ser “rock”, “pop”, “punk” o “indie”);
         // • Localización: almacenará un número de estantería.
         // • Prestado: almacenará un valor booleano. Por defecto será false.
+        class Disco {
+            // Además, tendrá los siguientes métodos:
+            // • Un constructor que se puede llamar con o sin parámetros:
+            //     o Sin parámetros: las 4 primeras propiedades serán cadenas vacías, la localización será 0 por defecto y prestado estará a false.
+            //     o Con parámetros: se pasarán solo las cinco primeras propiedades; la propiedad prestado será false.
+            constructor(nombre = "", grupo = "", año = "", genero = "", localizacion = 0) {
+                this.nombre = nombre;
+                this.grupo = grupo;
+                this.año = año;
+                this.genero = genero;
+                this.localizacion = localizacion;
+                this.prestado = false;
+            }
+            // • Un método que permitirá cambiar el número de estantería en la localización.
+            setLocalizacion(localizacion = 0) {
+                this.localizacion = localizacion;
+            };
+            // • Un método que permitirá cambiar la propiedad prestado.
+            setPrestado(prestado = false) {
+                this.prestado = prestado;
+            }
+            // • Un método que muestre toda la información de un disco.
+            info() {
+                return this.nombre + " - " + this.grupo + ". " + this.año + ". Genero " + this.genero + ". Estantería: " +
+                this.localizacion + ". Prestado: " + this.prestado;
+            }
 
-        // Además, tendrá los siguientes métodos:
-        // • Un constructor que se puede llamar con o sin parámetros:
-        //     o Sin parámetros: las 4 primeras propiedades serán cadenas vacías, la localización será 0 por defecto y prestado estará a false.
-        //     o Con parámetros: se pasarán solo las cinco primeras propiedades; la propiedad prestado será false.
-        // • Un método que permitirá cambiar el número de estantería en la localización.
-        // • Un método que permitirá cambiar la propiedad prestado.
-        // • Un método que muestre toda la información de un disco.
-
+        }
         // El programa hará lo siguiente:
         // • Creará un objeto de tipo disco, para lo cual te pide los parámetros.
+        var disco = new Disco(prompt("Nombre del album:"), prompt("Grupo:"), prompt("Año:"), prompt("Genero:"), prompt(
+            "Estantería:"));
         // • Presente un menú que permita:
         // o Mostrar la información del disco que se ha añadido
+
+        console.log(disco.info());
         // o Cambiar el disco de estantería
         // o Prestar un disco
         // o Devolver un disco
