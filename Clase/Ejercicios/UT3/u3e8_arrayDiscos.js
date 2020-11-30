@@ -70,6 +70,16 @@ do {
                 }
             } while (op2 != null);
             break;
+
+        case "3":
+            ;
+            break;
+        case "4":
+            ;
+            break;
+        case "5":
+            ;
+            break;
     }
 } while (op1 != null);
 
