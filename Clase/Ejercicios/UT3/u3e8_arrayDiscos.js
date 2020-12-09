@@ -57,7 +57,7 @@ do {
                             info = "";
                             discos.forEach(disco => {
                                 info += disco.info() + "\n";
-                            });
+                            }); 
                         }
 
                         break;
