@@ -9,11 +9,12 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
             let n1 = document.getElementById("n1");
-            n1.addEventListener("click", () => n1.value = "");
+            n1.addEventListener(
+                "click",
+                () => n1.value = "");
             document.getElementById("b1").addEventListener(
                 "click",
-                () => n1.value = n1.value * n1.value
-            );
+                () => n1.value = n1.value * n1.value);
         });
     </script>
 </head>

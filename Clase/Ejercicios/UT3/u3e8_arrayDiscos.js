@@ -49,7 +49,7 @@ do {
             break;
         case "2":
             // • Mostrar listado de discos (y le preguntará si quiere mostrarlos en el orden que se encuentran en el array, del revés u ordenados alfabéticamente).
-            op2 = prompt("Escoja orden:\n1. Según se encuentran.\n2. Del revés.\n2. Alfabético.");
+            op2 = prompt("Escoja orden:\n1. Según se encuentran.\n2. Del revés.\n3. Alfabético.");
             do {
                 switch (op2) {
                     case "1":
@@ -59,12 +59,12 @@ do {
                                 info += disco.info() + "\n";
                             }); 
                         }
+                        alert(info);
+                        break;
+                    case "2":
 
                         break;
-                    case "1":
-
-                        break;
-                    case "1":
+                    case "4":
 
                         break;
                 }
