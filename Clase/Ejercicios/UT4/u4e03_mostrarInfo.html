@@ -8,29 +8,61 @@
 </head>
 
 <body>
+    <!-- A partir de la página web proporcionada, completar el código JavaScript -->
     <script>
+        // para que se comporte de la siguiente forma:
         document.addEventListener("DOMContentLoaded", () => {
 
-                    let a1 = document.getElementById("a1");
-                    let a2 = document.getElementById("a2");
-                    let a3 = document.getElementById("a3");
+            let a1 = document.getElementById("a1");
 
-                    // A partir de la página web proporcionada, completar el código JavaScript para que se comporte de la siguiente forma:
+            a1.addEventListener("click", () => {
 
-                    // 1. Cuando se haga clic sobre el primer enlace, se oculte su sección relacionada.
-                    a1.addEventListener(
-                        "click",
-                        () => {
-                            document.getElementById("p1").style.display = "none";
-                        }
-                    );
-                    // 2. Cuando se vuelva a hacer clic sobre el mismo enlace, se muestre otra vez esa sección de contenidos.
+                let p = document.getElementById("p1");
 
-                    document.getElementById("p1").addEventListener(
-                        "click",
-                        () => n1.value = n1.value * n1.value
-                    );
-                }
+                // 2. Cuando se vuelva a hacer clic sobre el mismo enlace, se muestre otra vez esa sección de contenidos.
+                if (p.style.display == "none")
+                    p.style.display = '';
+                // 1. Cuando se haga clic sobre el primer enlace, se oculte su sección relacionada.
+                else
+                    p.style.display = "none";
+
+                // 4. Cuando una sección se oculte, debe cambiar el mensaje del enlace asociado
+                if (a1.innerText.match("Ocultar contenidos"))
+                    a1.innerText = "Mostrar contenidos";
+
+                else
+                    a1.innerText = "Ocultar contenidos";
+            });
+
+            // 3. Completar el ejercicio con el resto de enlaces de la página para que su comportamiento sea idéntico al del primer enlace
+            let a2 = document.getElementById("a2");
+            let a3 = document.getElementById("a3");
+
+            a2.addEventListener("click", () => {
+                let p = document.getElementById("p2");
+                if (p.style.display == "none") p.style.display = '';
+                else p.style.display = "none";
+
+                if (a2.innerText.match("Ocultar contenidos"))
+                    a2.innerText = "Mostrar contenidos";
+
+                else a2.innerText = "Ocultar contenidos";
+            });
+            a3.addEventListener("click", () => {
+                let p = document.getElementById("p3");
+                if (p.style.display == "none") p.style.display = '';
+                else p.style.display = "none";
+
+                if (a3.innerText.match("Ocultar contenidos"))
+                    a3.innerText = "Mostrar contenidos";
+
+                else a3.innerText = "Ocultar contenidos";
+            });
+
+
+
+        });
+        // Si es necesario, modifica el HTML.
     </script>
     <h1>Mostrar y ocultar información de una página web</h1>
     <div>
