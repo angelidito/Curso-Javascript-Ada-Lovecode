@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            let n1 = document.getElementById("n1");
+
+            n1.addEventListener(
+                "click",
+                () => n1.value = ""
+            );
+
+            document.getElementById("b1").addEventListener(
+                "click",
+                () => n1.value = n1.value * n1.value
+            );
+
+            document.getElementById("b2").addEventListener(
+                "click",
+                () => n1.value = n1.value * n1.value * n1.value
+            );
+
+            document.getElementById("b3").addEventListener(
+                "click",
+                () => n1.value = 1 / n1.value
+            );
+
+
+
+        });
+        // Partiendo del ejemplo 06_EventosCalculadoraW3CBubbling, añadir a nuestra calculadora dos botones más x^3 y 1/x. Habrá que realizar la gestión de eventos correspondiente para que funcionen correctamente las dos operaciones nuevas.
+        // También se añadirá un campo informativo mediante la etiqueta <h3> con contenido inicial "Información sobre el número". El contenido del campo se debe actualizar cada vez que se
+        // hace un cálculo en la calculadora. Su contenido debe ser "Información: el resultado de la  operación x^2 | x^3 | 1/x es número."
+    </script>
+</head>
+
+<body>
+    Número:
+    <input type="text" id="n1">
+    <button id="b1">x<sup>2</sup></button>
+    <button id="b2">x<sup>3</sup></button>
+    <button id="b3">1/x</button>
+</body>
+
+</html>

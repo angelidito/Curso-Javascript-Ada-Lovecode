@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UT04 - Ejercicio 3 - Mostrar / ocultar información</title>
+</head>
+
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+                    let a1 = document.getElementById("a1");
+                    let a2 = document.getElementById("a2");
+                    let a3 = document.getElementById("a3");
+
+                    // A partir de la página web proporcionada, completar el código JavaScript para que se comporte de la siguiente forma:
+
+                    // 1. Cuando se haga clic sobre el primer enlace, se oculte su sección relacionada.
+                    a1.addEventListener(
+                        "click",
+                        () => {
+                            document.getElementById("p1").style.display = "none";
+                        }
+                    );
+                    // 2. Cuando se vuelva a hacer clic sobre el mismo enlace, se muestre otra vez esa sección de contenidos.
+
+                    document.getElementById("p1").addEventListener(
+                        "click",
+                        () => n1.value = n1.value * n1.value
+                    );
+                }
+    </script>
+    <h1>Mostrar y ocultar información de una página web</h1>
+    <div>
+        <p id="p1">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed mattis enim vitae orci. Phasellus libero.
+            Maecenas nisl arcu, consequat congue, commodo nec, commodo ultricies, turpis. Quisque sapien nunc, posuere
+            vitae, rutrum et, luctus at, pede. Pellentesque massa ante, ornare id, aliquam vitae, ultrices porttitor,
+            pede. Nullam sit amet nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis, faucibus
+            ut, rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper, odio urna consequat arcu, at
+            posuere ante quam non dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis scelerisque.
+        </p>
+        <a href="#" id="a1">Ocultar contenidos</a>
+    </div>
+    <div>
+        <p id="p2">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed mattis enim vitae orci. Phasellus libero.
+            Maecenas nisl arcu, consequat congue, commodo nec, commodo ultricies, turpis. Quisque sapien nunc, posuere
+            vitae, rutrum et, luctus at, pede. Pellentesque massa ante, ornare id, aliquam vitae, ultrices porttitor,
+            pede. Nullam sit amet nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis, faucibus
+            ut, rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper, odio urna consequat arcu, at
+            posuere ante quam non dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis scelerisque.
+        </p>
+        <a href="#" id="a2">Ocultar contenidos</a>
+    </div>
+    <div>
+        <p id="p3">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed mattis enim vitae orci. Phasellus libero.
+            Maecenas nisl arcu, consequat congue, commodo nec, commodo ultricies, turpis. Quisque sapien nunc, posuere
+            vitae, rutrum et, luctus at, pede. Pellentesque massa ante, ornare id, aliquam vitae, ultrices porttitor,
+            pede. Nullam sit amet nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis, faucibus
+            ut, rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper, odio urna consequat arcu, at
+            posuere ante quam non dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis scelerisque.
+        </p>
+        <a href="#" id="a3">Ocultar contenidos</a>
+    </div>
+</body>
+
+</html>
