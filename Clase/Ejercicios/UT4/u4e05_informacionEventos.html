@@ -26,7 +26,29 @@
     </style>
 </head>
 
-<body>
+<body id="body">
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", () => {
+
+            screen.addEventListener("mouseover", e => {
+
+                let pos = "";
+
+                pos += window.innerWidth - e.clientX < window.innerWidth / 2 ? "derecha " :
+                    "izquierda ";
+
+                pos += window.innerHeight - e.clientY < window.innerHeight / 2 ? "abajo" :
+                    "arriba";
+
+                document.getElementById("datosRaton").innerHTML = pos;
+
+            })
+
+
+        });
+    </script>
+
     <div id="raton" class="box">
         <h1>Ratón</h1>
         <div id="datosRaton"></div>
