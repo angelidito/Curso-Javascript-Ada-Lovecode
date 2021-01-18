@@ -4,27 +4,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>8 test</title>
+    <style>
+        .nota {
+            margin: 1em;
+            border: 5px solid rgb(23, 162, 204);
+        }
+    </style>
 </head>
 
 <body>
-    <h2>Conscuso sobre la serie de televisión: </h2>
-    <h1>El Cuerpo Humano</h1>
-<h1>	&#10003; &#10007;</h1>
-
-
-
-
-
-
-
     <script>
         // Vas a crear un pequeño test sobre la serie de televisión que tú quieras. El test tendrá 10 preguntas con 3 respuestas cada una a elegir con botones de radio. El test deberá hacer lo siguiente:
-        // • Cuando el usuario conteste las 10 preguntas obtendrá el resultado final en un cuadro de
-        // texto.
-        // • Además, el usuario podrá ver qué preguntas ha fallado, porque al enviar el formulario le aparecerá un pequeño icono con un tic verde en las preguntas correctas y una cruz roja en las preguntas incorrectas.
-        // • En caso de que el usuario deje alguna pregunta sin contestar, no mostrará el resultado e indicará con un mensaje "No has respondido a todas las preguntas". Y se marcará en color rojo la pregunta que no haya sido respondida
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("hecho").addEventListener("click", () => {
+
+                let nota = 0;
+                for (let i = 1; i <= 10; i++) {
+                    let resultado = corregirPregunta(i);
+                    if (resultado == null) {
+                        nota = -100;
+                    } else if (resultado) {
+                        nota++;
+                    }
+                }
+
+                let calificacion = document.getElementsByTagName("span").item(10);
+                if (nota < 0) {
+                    // • En caso de que el usuario deje alguna pregunta sin contestar, no mostrará el resultado e indicará con un mensaje "No has respondido a todas las preguntas".
+                    calificacion.innerHTML =
+                        "No has respondido a todas las preguntas";
+                }
+
+                // • Cuando el usuario conteste las 10 preguntas obtendrá el resultado final en un cuadro detexto.
+                else {
+                    calificacion.innerHTML = "<span class='nota'> Nota final: " + nota + ".</span>";
+                }
+            });
+
+        });
+
+
+        function corregirPregunta(p) {
+            let radios = document.getElementsByName(p);
+            let fieldset = document.getElementById(p);
+            let legend = fieldset.getElementsByTagName("legend").item(0);
+            let span = document.getElementsByTagName("span").item(p - 1);
+
+            let correcto = false;
+            let contestada = false;
+
+            for (let i = 0; i < radios.length && !contestada; i++) {
+                const e = radios[i];
+                if (e.checked) {
+                    contestada = true;
+                    if (e.value.localeCompare("correcto") == 0) {
+                        correcto = true;
+                    }
+                }
+            }
+
+
+            // • Además, el usuario podrá ver qué preguntas ha fallado, porque al enviar el formulario le aparecerá 
+            if (contestada) {
+                // quitamos el rojo
+                fieldset.style.backgroundColor = "white";
+                legend.style.backgroundColor = "white";
+                // un pequeño icono con un tic verde en las preguntas correctas 
+                if (correcto) {
+                    span.innerHTML = "&#10003;";
+                    span.style.color = "green";
+                }
+                //y una cruz roja en las preguntas incorrectas.
+                else {
+                    span.innerHTML = "&#10007;";
+                    span.style.color = "red";
+                }
+
+                return correcto;
+            }
+
+            // • En caso de que el usuario deje alguna pregunta sin contestar, se marcará en color rojo la pregunta que no haya sido respondida
+            fieldset.style.backgroundColor = "red";
+            legend.style.backgroundColor = "red";
+
+            return null;
+
+
+
+        }
     </script>
+
+
+    <h2>Conscuso sobre la serie de televisión: </h2>
+    <h1>El cuerpo humano por dendro - Miniseres TV3</h1>
+
+    <form action="#" method="get">
+        <fieldset id="1">
+            <legend>1. ¿Cuántos corazones tenemos? <span></span> </legend>
+            <label><input type="radio" name="1" id="a1" value="correcto">Uno</label>
+            <label><input type="radio" name="1" id="b1" value="">Dos</label>
+            <label><input type="radio" name="1" id="c1" value="">Cuarenta y dos</label>
+        </fieldset>
+        <fieldset id="2">
+            <legend>2. El cerebro es azul <span></span> </legend>
+            <label><input type="radio" name="2" id="a2" value="">Verdadero</label>
+            <label><input type="radio" name="2" id="b2" value="correcto">Falso</label>
+            <label><input type="radio" name="2" id="c2" value="">No existe</label>
+        </fieldset>
+        <fieldset id="3">
+            <legend>3. ¿Cuanto mide el intestino delgado? <span></span> </legend>
+            <label><input type="radio" name="3" id="a3" value="">Nada</label>
+            <label><input type="radio" name="3" id="b3" value="">Poco</label>
+            <label><input type="radio" name="3" id="c3" value="correcto">Mucho</label>
+        </fieldset>
+        <fieldset id="4">
+            <legend>4. ¿Responda 9 para demostrar que está prestando atención? <span></span> </legend>
+            <label><input type="radio" name="4" id="a4" value="correcto">9</label>
+            <label><input type="radio" name="4" id="b4" value="">69</label>
+            <label><input type="radio" name="4" id="c4" value="">969</label>
+        </fieldset>
+        <fieldset id="5">
+            <legend>5. El cuerpo flota... <span></span> </legend>
+            <label><input type="radio" name="5" id="a5" value="">en el aceite</label>
+            <label><input type="radio" name="5" id="b5" value="correcto">en el agua</label>
+            <label><input type="radio" name="5" id="c5" value="">en el espacio</label>
+        </fieldset>
+        <fieldset id="6">
+            <legend>6. ¿Qué pregunta es esta? <span></span> </legend>
+            <label><input type="radio" name="6" id="a6" value="">696</label>
+            <label><input type="radio" name="6" id="b6" value="">96</label>
+            <label><input type="radio" name="6" id="c5" value="correcto">6</label>
+        </fieldset>
+        <fieldset id="7">
+            <legend>7. Pregunta 7 <span></span> </legend>
+            <label><input type="radio" name="7" id="a7" value="correcto">A</label>
+            <label><input type="radio" name="7" id="b7" value="">B</label>
+            <label><input type="radio" name="7" id="c7" value="">C</label>
+        </fieldset>
+        <fieldset id="8">
+            <legend>8. Elija la b <span></span> </legend>
+            <label><input type="radio" name="8" id="a8" value="">a</label>
+            <label><input type="radio" name="8" id="b8" value="correcto">La B</label>
+            <label><input type="radio" name="8" id="c8" value="">c</label>
+        </fieldset>
+        <fieldset id="9">
+            <legend>9. ¿Qué es un gemelo? <span></span> </legend>
+            <label><input type="radio" name="9" id="a9" value="">Una cosa que se lleva en la camisa</label>
+            <label><input type="radio" name="9" id="b9" value="">Un hermano que nace a la vez que el otro</label>
+            <label><input type="radio" name="9" id="c9" value="correcto">Ambas son correctas</label>
+        </fieldset>
+        <fieldset id="10">
+            <legend>10. A <span></span> </legend>
+            <label><input type="radio" name="10" id="a10" value="correcto">A</label>
+            <label><input type="radio" name="10" id="b10" value="">A</label>
+            <label><input type="radio" name="10" id="c10" value="">A</label>
+        </fieldset>
+
+        <input type="button" value="Hecho" id="hecho">
+        <span></span>
+    </form>
+
 </body>
 
 </html>
