@@ -25,11 +25,28 @@
     </style>
 </head>
 
-<body>
+<body id="body">
     <script>
-        // A partir del archivo HTML proporcionado, crear un script que informe al usuario en qué zona de la pantalla ha hecho clic el ratón. Las zonas posibles son las siguientes: izquierda arriba, izquierda abajo, derecha arriba y derecha abajo, todas relativas al tamaño de la ventana del navegador.
+        // A partir del archivo HTML proporcionado, crear un script que informe al usuario en qué zona de la pantalla ha hecho clic el ratón. 
+        // Las zonas posibles son las siguientes: izquierda arriba, izquierda abajo, derecha arriba y derecha abajo, todas relativas al tamaño de la ventana del navegador.
+        document.addEventListener("DOMContentLoaded", () => {
 
-        document
+            window.addEventListener("click", e => {
+
+                let pos = "";
+
+                pos += window.innerWidth - e.clientX < window.innerWidth / 2 ? "derecha " :
+                    "izquierda ";
+
+                pos += window.innerHeight - e.clientY < window.innerHeight / 2 ? "abajo" :
+                    "arriba";
+
+                document.getElementsByClassName("posicion")[0].innerHTML = pos;
+
+            })
+
+
+        });
     </script>
 
 
