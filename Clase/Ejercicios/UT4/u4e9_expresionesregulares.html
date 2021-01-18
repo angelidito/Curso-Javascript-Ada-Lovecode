@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9</title>
+    <style>
+        .valid {
+            border: 1px solid black;
+        }
+
+        .invalid {
+            border: 1px dashed red;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // Breaking Bad. Walter White y Jesse Pinkman tienen que controlar las bolsas de producto azul que cocinan para distribuir en Albuquerque.
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            let v = document.getElementById("validar");
+
+            //     • La validación se asignará al formulario mediante el método .addEventListener().
+            v.addEventListener("click", () => {
+
+                // Si alguno no se valida, se suma 1 a la variable errores.
+                // De esta forma, evito poner las funciones en un if y que pare al encontrar una false.
+                // Me parece una mejor experiencia para el usuario el poder ver todo lo que le falla 
+                // en lugar de un solo fallo cada vez que intenta enviar el formulario...
+                let errores = 0;
+                // Validamos
+                errores += validaFecha() ? 0 : 1;
+                errores += validaCocinero() ? 0 : 1;
+                errores += validaDestinatario() ? 0 : 1;
+                errores += validaGramos() ? 0 : 1;
+                errores += validaComposicion() ? 0 : 1;
+                errores += validaCuenta() ? 0 : 1;
+
+                // Enviamos si OK
+                if (errores == 0 && confirm(
+                        "¿Desea enviar ya el formulario?\n\n(Dé a cancelar para ver como se ha escrito el número de cuenta)"
+                    ))
+                    document.getElementsByTagName("form")[0].submit();
+            });
+        });
+
+        // MÉTODOS AUXILIARES.
+        function invalid(e) {
+            e.setAttribute("class", 'invalid');
+            return false;
+        }
+
+        function valid(e) {
+            e.setAttribute("class", 'valid');
+            return true;
+        }
+
+        // Para ello tienen que crear un formulario que almacene la información de cada bolsa y validarlo teniendo en cuenta lo siguiente:
+
+        // • Fecha de creación: obligatorio, fecha válida y con formato dd/mm/aaaa.
+        function validaFecha() {
+            let e = document.getElementsByName("fecha")[0];
+
+            if (/^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])(\/)(\d{4})$/.test(e.value))
+                return valid(e);
+
+            return invalid(e);
+        }
+
+        // • Cocinero: será un nombre en clave formado por dos letras en mayúscula, un símbolo y cuatro dígitos (ej. WW$1234)
+        function validaCocinero() {
+            let e = document.getElementsByName("cocinero")[0];
+
+            if (/^[A-Z]{2}[\S\D\W]{1}\d{4}$/.test(e.value))
+                return valid(e);
+
+            return invalid(e);
+        }
+
+        // • Destinatario: estará formado por dos o tres letras mayúsculas correspondientes al estado, un guion bajo, el nombre de la ciudad en minúsculas, dos puntos, y el código de distrito de 4 digitos (ej. NM_alburquerque:1234).
+        function validaDestinatario() {
+            let e = document.getElementsByName("destinatario")[0];
+
+            if (/^[A-Z]{2,3}_[a-z]+:\d{4}$/.test(e.value))
+                return valid(e);
+
+            return invalid(e);
+        }
+
+        // • Gramos: será un número del 100 al 5000.
+        function validaGramos() {
+            let e = document.getElementsByName("gramos")[0];
+
+            if (!isNaN(e.value) && 99 < e.value && e.value <= 5000)
+                return valid(e);
+
+            return invalid(e);
+        }
+
+        // • Composición: estará formado por una cantidad en gramos seguida de dos conjuntos de una o dos letras seguidas o no de un número. (ej. 200gC3OH7)
+        function validaComposicion() {
+            let e = document.getElementsByName("composición")[0];
+
+            if (/^\d+g([A-Z]{1,2}\d?){2}$/.test(e.value))
+                return valid(e);
+
+            return invalid(e);
+        }
+
+        // • Número de cuenta de EEUU: supongamos que un número de cuenta estadounidense tiene el siguiente formato:
+        //      o Dos letras: suponemos que el valor de cada letra es del 1 al 26 (no hay ñ ni ll).
+        //      o Dos dígitos: debe corresponderse con la suma de la primera letra y la segunda: en caso de que sea menor que 10 se pone el 0 delante.
+        //      o Un guion.
+        //      o Doce dígitos de cuenta.
+        //      o Un guion.
+        //      o Dos dígitos de control: los dos primeros deben ser la suma de los 6 primeros dígitos de la cuenta dividido entre 6 y extrayendo solamente su parte entera; y los dos últimos exactamente igual, pero con los 6 siguientes.
+        //      o Si el número está correcto se colocará en un campo de texto al lado del anterior,
+        // pero sin guiones: solamente los números y las letras.
+        function validaCuenta() {
+
+            let e = document.getElementsByName("cuenta")[0];
+
+            let letras = ["", "a", "b", "c", "d", "e", "f", "g",
+                "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
+                "r", "s", "t", "u", "v", "w", "x", "y", "z"
+            ];
+
+            if (/^\w\w\d\d-\d{12}-\d{4}$/.test(e.value)) {
+                const cuenta = e.value;
+
+                let sumaCaracteres0y1 = 0;
+
+                sumaCaracteres0y1 += letras.indexOf(cuenta.charAt(0));
+                sumaCaracteres0y1 += letras.indexOf(cuenta.charAt(1));
+
+
+                let numeros2y3 = cuenta.substring(2, 4);
+                if (sumaCaracteres0y1 == parseInt(numeros2y3)) {
+                    let partesCuenta = cuenta.split("-");
+                    let digitosControl1 = partesCuenta[2].substring(0, 2);
+                    let digitosControl2 = partesCuenta[2].substring(2, 4);
+                    let docena = partesCuenta[1];
+                    let mitad1 = 0;
+                    let mitad2 = 0;
+
+                    for (let i = 0; i < 6; i++)
+                        mitad1 += parseInt(docena[i]);
+                    for (let i = 6; i < docena.length; i++)
+                        mitad2 += parseInt(docena[i]);
+
+                    if (mitad1 == digitosControl1 && mitad2 == digitosControl2) {
+                        // Escribir el numero en el span, pero sin guiones; solamente los números y las letras.
+                        document.getElementById("numCuenta").innerHTML = "&nbsp;&nbsp;" + partesCuenta[0] +
+                            partesCuenta[1] +
+                            partesCuenta[2]
+                        return valid(e);
+                    }
+                }
+            }
+            // esto sería como el else de la RegEx
+            return invalid(e);
+        }
+    </script>
+
+    <form action="#" method="GET">
+        <fieldset>
+            <legend>Datos bolsa producto azul</legend>
+            (Rellenado con los ejemplos para comprobarlo más rápido)
+            <ul>
+                <li>
+                    <label>Fecha:
+                        <br>
+                        <input type="text" name="fecha" placeholder="dd/mm/aaaa" value="22/02/2020">
+                    </label>
+                </li>
+                <li>
+                    <label>Cocinero:
+                        <br>
+                        <input type="text" name="cocinero" value="WW$1234">
+                    </label>
+                </li>
+                <li>
+                    <label>Destinatario:
+                        <br>
+                        <input type="text" name="destinatario" value="NM_alburquerque:1234">
+                    </label>
+                </li>
+                <li>
+                    <label>Gramos:
+                        <br>
+                        <input type="text" name="gramos" value="1024">
+                    </label>
+                </li>
+                <li>
+                    <label>Composición:
+                        <br>
+                        <input type="text" name="composición" value="200gC3OH7">
+                    </label>
+                </li>
+                <li>
+                    <label>Número de cuenta:
+                        <br>
+                        <input type="text" name="cuenta" value="ab03-404040303030-1209"><span id="numCuenta"></span>
+                    </label>
+                </li>
+                <br>
+                <input type="button" value="Añadir" id="validar">
+            </ul>
+        </fieldset>
+    </form>
+</body>
+
+</html>
