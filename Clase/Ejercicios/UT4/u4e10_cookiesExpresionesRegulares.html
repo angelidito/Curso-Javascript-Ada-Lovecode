@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9</title>
+    <title>10</title>
     <style>
         .valid {
             border: 1px solid black;
@@ -18,20 +18,43 @@
 
 <body>
     <script>
-        // Breaking Bad. Walter White y Jesse Pinkman tienen que controlar las bolsas de producto azul que cocinan para distribuir en Albuquerque.
-
         document.addEventListener("DOMContentLoaded", () => {
 
+            // • Si el usuario sale del programa y vuelve a entrar, el campo de texto mostrará el número almacenado en la cookie.
+            let errs = 0;
+            // Si no existe la cookie, son 0.
+            if (!/erroresAcumulados=/.test(document.cookie)) {
+                errs = 0;
+            }
+            // Si existe, la buscamos y sacamos el dato
+            else {
+                errs = parseInt(document.cookie.split(/erroresAcumulados=/)[1].split(";")[0]);
+            }
+
+            document.getElementById("erroresAcumulados").innerHTML = "Errores acumulados: " + errs;
+
+
+
+            // // // // // // // // // // // // // // //
+            // // // // // // // // // // // // // // //
+            // // // // // // // // // // // // // // //
+            // EVENTO VALIDACIÓN.// // // // // // // //
+            // // // // // // // // // // // // // // //
+            // // // // // // // // // // // // // // //
+            // // // // // // // // // // // // // // //
+
+            // Asociamos el evento al botón:
+            //     • La validación se asignará al formulario mediante el método .addEventListener().
             let v = document.getElementById("validar");
 
-            //     • La validación se asignará al formulario mediante el método .addEventListener().
             v.addEventListener("click", () => {
 
-                // Si alguno no se valida, se suma 1 a la variable errores.
-                // De esta forma, evito poner las funciones en un if y que pare al encontrar una false.
-                // Me parece una mejor experiencia para el usuario el poder ver todo lo que le falla 
-                // en lugar de un solo fallo cada vez que intenta enviar el formulario...
+                // Si algún campo no se valida, se suma 1 a la variable errores.
                 let errores = 0;
+                // De esta forma, evito poner las funciones en un if y que pare al encontrar una false.
+                // Me parece una mejor experiencia para el usuario el poder ver todo lo que le falla de una vez
+                // en lugar de un solo fallo cada vez que intenta enviar el formulario.
+                // Actualización: por lo visto me viene bien para las cookies.
                 // Validamos
                 errores += validaFecha() ? 0 : 1;
                 errores += validaCocinero() ? 0 : 1;
@@ -40,15 +63,77 @@
                 errores += validaComposicion() ? 0 : 1;
                 errores += validaCuenta() ? 0 : 1;
 
+                // • Cada vez que el usuario trate de enviar el formulario y haya algún error, una variable contador (almacenada en una cookie) se incrementará.
+                let erroresAcumulados = 0;
+                // Si no existe, la creamos.
+                if (!/erroresAcumulados=/.test(document.cookie)) {
+                    document.cookie =
+                        "erroresAcumulados=" + errores +
+                        "; expires=01 Jan 2222 00:00:00 UTC";
+                    erroresAcumulados = errores;
+                }
+                // Si existe, la buscamos y sacamos el dato
+                else {
+                    // Sacamos el dato
+                    erroresAcumulados = parseInt(document.cookie.split(/erroresAcumulados=/)[1].split(
+                        ";")[0]);
+                    //Sumamos los nuevos errores
+                    erroresAcumulados += errores;
+                    //Escribimos la cookie actualizada
+                    document.cookie = "erroresAcumulados=" + erroresAcumulados +
+                        "; expires=01 Jan 2222 00:00:00 UTC";
+                }
+
+                console.log("document.cookie:\n" + document.cookie);
+
+
+                // • El resultado del número de intentos se reflejará en un campo de texto que se encontrará al final del formulario.
+                document.getElementById("erroresAcumulados").innerHTML = "Errores acumulados: " +
+                    erroresAcumulados;
+
                 // Enviamos si OK
                 if (errores == 0 && confirm(
                         "¿Desea enviar ya el formulario?\n\n(Dé a cancelar para ver como se ha escrito el número de cuenta)"
                     ))
                     document.getElementsByTagName("form")[0].submit();
             });
+
+
+
+
+            // // // // // // // // // // // // // // //
+            // // // // // // // // // // // // // // //
+            // // // // // // // // // // // // // // //
+            // RESET COOKIE./ // // // // // // // // //
+            // // // // // // // // // // // // // // //
+            // // // // // // // // // // // // // // //
+            // // // // // // // // // // // // // // //
+
+            // • Junto al campo de texto habrá un botón que, al pulsarlo, permitirá reiniciar el valor de la cookie a 0.
+            let reset = document.getElementById("resetear");
+
+            reset.addEventListener("click", () => {
+                // Borramos cookie
+                document.cookie = "erroresAcumulados=; expires=01 Jan 1970 00:00:00 UTC";
+                // Actualizamos contador
+                document.getElementById("erroresAcumulados").innerHTML = "Errores acumulados: " + 0;
+            })
         });
 
-        // MÉTODOS AUXILIARES.
+
+
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // MÉTODOS AUXILIARES./ // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+
         function invalid(e) {
             e.setAttribute("class", 'invalid');
             return false;
@@ -59,7 +144,19 @@
             return true;
         }
 
-        // Para ello tienen que crear un formulario que almacene la información de cada bolsa y validarlo teniendo en cuenta lo siguiente:
+
+
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // MÉTODOS VALIDACIÓN./ // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // //
 
         // • Fecha de creación: obligatorio, fecha válida y con formato dd/mm/aaaa.
         function validaFecha() {
@@ -75,7 +172,7 @@
         function validaCocinero() {
             let e = document.getElementsByName("cocinero")[0];
 
-            if (/^[A-Z]{2}[\S\D\W]{1}\d{4}$/.test(e.value))
+            if (/^[A-Z]{2}\$\d{4}$/.test(e.value))
                 return valid(e);
 
             return invalid(e);
@@ -110,6 +207,8 @@
 
             return invalid(e);
         }
+
+
 
         // • Número de cuenta de EEUU: supongamos que un número de cuenta estadounidense tiene el siguiente formato:
         //      o Dos letras: suponemos que el valor de cada letra es del 1 al 26 (no hay ñ ni ll).
@@ -206,12 +305,15 @@
                         <br>
                         <input type="text" name="cuenta" value="ab03-404040303030-1209"><span id="numCuenta"></span>
                     </label>
+                    <br>
+                    <br>
+                    <input type="button" value="Añadir" id="validar">
                 </li>
-                <br>
-                <input type="button" value="Añadir" id="validar">
             </ul>
         </fieldset>
     </form>
+    <!-- • El resultado del número de intentos se reflejará en un campo de texto que se encontrará al final del formulario. -->
+    <span id="erroresAcumulados"></span>&nbsp;&nbsp;<input type="button" value="Reset" id="resetear">
 </body>
 
 </html>
