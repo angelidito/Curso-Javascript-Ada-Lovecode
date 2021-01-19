@@ -7,166 +7,287 @@
     <title>u4e12_test</title>
     <style>
         .nota {
-            margin: 1em;
+            padding: 3px;
             border: 5px solid rgb(23, 162, 204);
+        }
+
+        h1,
+        h2 {
+            margin: 0 0 0.2em 0;
         }
     </style>
 </head>
 
 <body>
     <script>
-        // Vas a crear un pequeño test sobre la serie de televisión que tú quieras. El test tendrá 10 preguntas con 3 respuestas cada una a elegir con botones de radio. El test deberá hacer lo siguiente:
+        console.log(
+            "He añadido unos cuantos mensajes por consola, para que se pueda seguir con mayor facilidad la lógica del programa"
+        );
 
+        console.log("Las respuestas correctas son A, B, C, A, B, C, A, B, C y A.")
+
+
+        ///////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        ///////////////////|–––––––|///////////////////
+        ///////////////////|EVENTOS|///////////////////
+        ///////////////////|–––––––|///////////////////
+        ///////////////////////////////////////////////
 
         document.addEventListener("DOMContentLoaded", () => {
+
+            ////////////////////////////////////////////////
+            /////////////////|CORRECCIÓN|//////////////////
+            //////////////////////////////////////////////
             document.getElementById("hecho").addEventListener("click", () => {
 
                 let nota = 0;
+
+                // Corregimos las 10 preguntas
                 for (let i = 1; i <= 10; i++) {
                     let resultado = corregirPregunta(i);
+                    // Esto es si la pregunta no está contestada
                     if (resultado == null) {
                         nota = -100;
-                    } else if (resultado) {
-                        nota++;
                     }
+                    // Y esto si está bien contestada
+                    else if (resultado) {
+                        nota++;
+                    } // Si está mal no hace nada.
                 }
 
+                // Ahora vamos a escribir la nota o el mensaje, lo que corresponda.
                 let calificacion = document.getElementsByTagName("span").item(10);
                 if (nota < 0) {
                     // • En caso de que el usuario deje alguna pregunta sin contestar, no mostrará el resultado e indicará con un mensaje "No has respondido a todas las preguntas".
                     calificacion.innerHTML =
                         "No has respondido a todas las preguntas";
-                }
 
+                    console.log("Mensaje escrito: no has respondido a todas las preguntas");
+                }
                 // • Cuando el usuario conteste las 10 preguntas obtendrá el resultado final en un cuadro detexto.
                 else {
-                    calificacion.innerHTML = "<span class='nota'> Nota final: " + nota + ".</span>";
+                    calificacion.innerHTML =
+                        "<br><span class='nota'>" +
+                        "Nota final: " + nota +
+                        ".</span>";
+
+                    console.log("Nota escrita:" + nota);
                 }
+            });
+
+
+            ///////////////////////////////////////////////
+            ////////////////|LOCAL–STORAGE|///////////////
+            /////////////////////////////////////////////
+
+            //////////////////|GUARDADO|///////////////
+
+            let respuestas = document.getElementsByClassName("respuesta");
+            for (let i = 0; i < respuestas.length; i++) {
+                const p = respuestas[i];
+                // Añadimos el evento a todos los radio buttons.
+                // Todos son de la clase "respuesta".
+                p.addEventListener("click", guardarSeleccion);
+                console.log("Evento clik añadido a radio button");
+            }
+
+            ////////////|RECUPERAR ESTADO|////////////
+            for (let i = 1; i <= 10; i++) {
+                let id = localStorage.getItem("pregunta" + i);
+                // La variable id es null si no se selecionó ninguna respuesta en esa pregunta
+                if (id != null) {
+                    document.getElementById(id).checked = true;
+                    console.log("Respuesta recuperada");
+                }
+            }
+
+            ////////////////|LIMPIAR|////////////////
+            document.getElementById("limpiar").addEventListener("click", () => {
+                // Limpiamos el formulario si OK
+                if (confirm("¿Desea limpiar el formulario?\n\n(Esta acción no limpia la correción)")) {
+                    for (let i = 1; i <= 10; i++) {
+                        let id = localStorage.getItem("pregunta" + i);
+                        // La variable id es null si no se selecionó ninguna respuesta en esa pregunta
+                        if (id != null) {
+                            document.getElementById(id).checked = false;
+                            console.log("Respuesta limpiada");
+                        }
+                    }
+                    console.log("El formulario ha sido limpiado");
+                }
+                // Limpiamos localStorage si OK
+                if (confirm("¿Desea limpiar el localStorage?")) {
+                    localStorage.clear();
+                    console.log("El localStorage ha sido limpiado");
+                }
+
+
             });
 
         });
 
 
+
+
+        ///////////////////////////////////////////////
+        ///////////////////////////////////////////////
+        /////////////////|–––––––––|///////////////////
+        /////////////////|FUNCIONES|///////////////////
+        /////////////////|–––––––––|///////////////////
+        ///////////////////////////////////////////////
+
+
+        ///////////////////////////////////////////////
+        ////////////////|LOCAL–STORAGE|///////////////
+        /////////////////////////////////////////////
+
+        function guardarSeleccion(e) {
+            let t = e.target;
+            let clave = "pregunta" + t.name;
+            let valor = t.id;
+
+            localStorage.setItem(clave, valor);
+            console.log("Selección guardada: " + clave + " = " + valor);
+        }
+
+
+        ///////////////////////////////////////////////
+        /////////////////|CORRECCIÓN|/////////////////
+        /////////////////////////////////////////////
+        // Corrige las preguntas y las marca como correctas, incorrectas y no contestadas.
+        // Devuelve:
+        //      · true si está bien contestada
+        //      · false si está mal contestada
+        //      · null si no está contestada
         function corregirPregunta(p) {
+
+            // Elementos que vamos a usar
             let radios = document.getElementsByName(p);
             let fieldset = document.getElementById(p);
             let legend = fieldset.getElementsByTagName("legend").item(0);
             let span = document.getElementsByTagName("span").item(p - 1);
 
+            // Booleanos auxiliares
             let correcto = false;
             let contestada = false;
 
+            // Comprobamos si están contestadas las preguntas y si son correctas las respuestas:
             for (let i = 0; i < radios.length && !contestada; i++) {
                 const e = radios[i];
+                // Aquí si está contestada
                 if (e.checked) {
                     contestada = true;
+                    // Y aquí si es correcta 
                     if (e.value.localeCompare("correcto") == 0) {
                         correcto = true;
                     }
                 }
+
             }
-
-
             // • Además, el usuario podrá ver qué preguntas ha fallado, porque al enviar el formulario le aparecerá 
             if (contestada) {
-                // quitamos el rojo
+                // el fondo blanco si está contestada,
                 fieldset.style.backgroundColor = "white";
                 legend.style.backgroundColor = "white";
                 // un pequeño icono con un tic verde en las preguntas correctas 
                 if (correcto) {
-                    span.innerHTML = "&#10003;";
+                    span.innerHTML = "&#10003;"; // tic
                     span.style.color = "green";
+                    console.log("Pregunta bien contestada");
                 }
-                //y una cruz roja en las preguntas incorrectas.
+                // y una cruz roja en las preguntas incorrectas.
                 else {
-                    span.innerHTML = "&#10007;";
+                    span.innerHTML = "&#10007;"; // cruz
                     span.style.color = "red";
+                    console.log("Pregunta mal contestada");
                 }
-
+                // True si está correcto, false si no.
                 return correcto;
             }
 
-            // • En caso de que el usuario deje alguna pregunta sin contestar, se marcará en color rojo la pregunta que no haya sido respondida
+            // • En caso de que el usuario deje alguna pregunta sin contestar, se marcará en color rojo la pregunta que no haya sido respondida:
             fieldset.style.backgroundColor = "red";
             legend.style.backgroundColor = "red";
 
+            // Null si no está contestada.
+            console.log("Pregunta no contestada");
             return null;
-
-
-
         }
     </script>
 
 
     <h2>Conscuso sobre la serie de televisión: </h2>
-    <h1>El cuerpo humano por dent
-        ro - Miniseres TV3</h1>
+    <h1>El cuerpo humano por dentro - Minisere TV3</h1>
 
     <form action="#" method="get">
         <fieldset id="1">
             <legend>1. ¿Cuántos corazones tenemos? <span></span> </legend>
-            <label><input type="radio" name="1" id="a1" value="correcto">Uno</label>
-            <label><input type="radio" name="1" id="b1" value="">Dos</label>
-            <label><input type="radio" name="1" id="c1" value="">Cuarenta y dos</label>
+            <label><input type="radio" name="1" id="a1" class="respuesta" value="correcto">Uno</label>
+            <label><input type="radio" name="1" id="b1" class="respuesta" value="">Dos</label>
+            <label><input type="radio" name="1" id="c1" class="respuesta" value="">Cuarenta y dos</label>
         </fieldset>
         <fieldset id="2">
             <legend>2. El cerebro es azul <span></span> </legend>
-            <label><input type="radio" name="2" id="a2" value="">Verdadero</label>
-            <label><input type="radio" name="2" id="b2" value="correcto">Falso</label>
-            <label><input type="radio" name="2" id="c2" value="">No existe</label>
+            <label><input type="radio" name="2" id="a2" class="respuesta" value="">Verdadero</label>
+            <label><input type="radio" name="2" id="b2" class="respuesta" value="correcto">Falso</label>
+            <label><input type="radio" name="2" id="c2" class="respuesta" value="">No existe</label>
         </fieldset>
         <fieldset id="3">
             <legend>3. ¿Cuanto mide el intestino delgado? <span></span> </legend>
-            <label><input type="radio" name="3" id="a3" value="">Nada</label>
-            <label><input type="radio" name="3" id="b3" value="">Poco</label>
-            <label><input type="radio" name="3" id="c3" value="correcto">Mucho</label>
+            <label><input type="radio" name="3" id="a3" class="respuesta" value="">Nada</label>
+            <label><input type="radio" name="3" id="b3" class="respuesta" value="">Poco</label>
+            <label><input type="radio" name="3" id="c3" class="respuesta" value="correcto">Mucho</label>
         </fieldset>
         <fieldset id="4">
             <legend>4. ¿Responda 9 para demostrar que está prestando atención? <span></span> </legend>
-            <label><input type="radio" name="4" id="a4" value="correcto">9</label>
-            <label><input type="radio" name="4" id="b4" value="">69</label>
-            <label><input type="radio" name="4" id="c4" value="">969</label>
+            <label><input type="radio" name="4" id="a4" class="respuesta" value="correcto">9</label>
+            <label><input type="radio" name="4" id="b4" class="respuesta" value="">69</label>
+            <label><input type="radio" name="4" id="c4" class="respuesta" value="">969</label>
         </fieldset>
         <fieldset id="5">
             <legend>5. El cuerpo flota... <span></span> </legend>
-            <label><input type="radio" name="5" id="a5" value="">en el aceite</label>
-            <label><input type="radio" name="5" id="b5" value="correcto">en el agua</label>
-            <label><input type="radio" name="5" id="c5" value="">en el espacio</label>
+            <label><input type="radio" name="5" id="a5" class="respuesta" value="">en el aceite</label>
+            <label><input type="radio" name="5" id="b5" class="respuesta" value="correcto">en el agua</label>
+            <label><input type="radio" name="5" id="c5" class="respuesta" value="">en el espacio</label>
         </fieldset>
         <fieldset id="6">
             <legend>6. ¿Qué pregunta es esta? <span></span> </legend>
-            <label><input type="radio" name="6" id="a6" value="">696</label>
-            <label><input type="radio" name="6" id="b6" value="">96</label>
-            <label><input type="radio" name="6" id="c6" value="correcto">6</label>
+            <label><input type="radio" name="6" id="a6" class="respuesta" value="">696</label>
+            <label><input type="radio" name="6" id="b6" class="respuesta" value="">96</label>
+            <label><input type="radio" name="6" id="c6" class="respuesta" value="correcto">6</label>
         </fieldset>
         <fieldset id="7">
             <legend>7. Pregunta 7 <span></span> </legend>
-            <label><input type="radio" name="7" id="a7" value="correcto">A</label>
-            <label><input type="radio" name="7" id="b7" value="">B</label>
-            <label><input type="radio" name="7" id="c7" value="">C</label>
+            <label><input type="radio" name="7" id="a7" class="respuesta" value="correcto">A</label>
+            <label><input type="radio" name="7" id="b7" class="respuesta" value="">B</label>
+            <label><input type="radio" name="7" id="c7" class="respuesta" value="">C</label>
         </fieldset>
         <fieldset id="8">
             <legend>8. Elija la b <span></span> </legend>
-            <label><input type="radio" name="8" id="a8" value="">a</label>
-            <label><input type="radio" name="8" id="b8" value="correcto">La B</label>
-            <label><input type="radio" name="8" id="c8" value="">c</label>
+            <label><input type="radio" name="8" id="a8" class="respuesta" value="">a</label>
+            <label><input type="radio" name="8" id="b8" class="respuesta" value="correcto">La B</label>
+            <label><input type="radio" name="8" id="c8" class="respuesta" value="">c</label>
         </fieldset>
         <fieldset id="9">
             <legend>9. ¿Qué es un gemelo? <span></span> </legend>
-            <label><input type="radio" name="9" id="a9" value="">Una cosa que se lleva en la camisa</label>
-            <label><input type="radio" name="9" id="b9" value="">Un hermano que nace a la vez que el otro</label>
-            <label><input type="radio" name="9" id="c9" value="correcto">Ambas son correctas</label>
+            <label><input type="radio" name="9" id="a9" class="respuesta" value="">Una cosa que se lleva en la
+                camisa</label>
+            <label><input type="radio" name="9" id="b9" class="respuesta" value="">Un hermano que nace a la vez que el
+                otro</label>
+            <label><input type="radio" name="9" id="c9" class="respuesta" value="correcto">Ambas son correctas</label>
         </fieldset>
         <fieldset id="10">
             <legend>10. A <span></span> </legend>
-            <label><input type="radio" name="10" id="a10" value="correcto">A</label>
-            <label><input type="radio" name="10" id="b10" value="">A</label>
-            <label><input type="radio" name="10" id="c10" value="">A</label>
+            <label><input type="radio" name="10" id="a10" class="respuesta" value="correcto">A</label>
+            <label><input type="radio" name="10" id="b10" class="respuesta" value="">A</label>
+            <label><input type="radio" name="10" id="c10" class="respuesta" value="">A</label>
         </fieldset>
 
         <input type="button" value="Hecho" id="hecho">
-        <span></span>
+        <input type="button" value="Limpiar" id="limpiar">
     </form>
+    <span></span>
 
 </body>
 
