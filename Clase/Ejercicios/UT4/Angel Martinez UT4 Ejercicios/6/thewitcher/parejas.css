@@ -1,0 +1,90 @@
+/*fuente, tamaño, margen izquierdo y color de fondo para el body*/
+body {
+    font-family: 'Courier New', Courier, monospace, Sans, helvetica, arial, verdana;
+    font-size: 15px;
+    margin-left: 400px;
+    background-image: url("./img/fondo1.png");
+    background-size:100%;
+}
+
+/*Posición para la tabla dónde se muestran las imagenes*/
+#contenido {
+    position: relative;
+    left: 300px;
+}
+/*Posición, margen superior, margen izquierdo, tamaño de la fuente y negrita al final de la página.*/
+#adicional {
+    margin-top: 3%;
+    margin-left: 60%;
+    font-size: 16px;
+    left: 0px;
+    font-weight: bold;
+}
+/*CSS par ala etiqueta h1*/
+h1 {
+    margin-top: 22%;
+    text-align: center;
+    width: 460px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #EE2836;
+}
+/*CSS para la tabla que está dentro del id tablero (definido en js) */
+#tablero table {
+    border: 3.5px solid black;
+    padding: 4px 8px;
+    background-image: url("./img/madera.png");
+}
+
+/*CSS para los tr y td que están contenidos dentro del div con id tablero*/
+#tablero tr,#tablero td {
+    padding: 0;
+    margin: 0;
+}
+
+/*CSS para las imagenes que están dentro de un td que a su vez están dentro 
+   del div con id tablero*/
+#tablero td img {
+    margin: 4px;
+    padding: 0;
+    height: 150px;
+    width: 150px;
+    border: 1px solid #72C1CD;
+}
+
+/*Para cuando se pasa el ratón por encima de las imágenes*/
+#tablero td img:hover {
+    margin: 4px;
+    padding: 0;
+    height: 98px;
+    width: 98px;
+    border: 1px solid red;
+}
+
+/*CSS para el formulario que muestra los contadores*/
+#datos {
+
+    position: absolute;
+    top: 0px;
+    left: 480px;
+    padding: 4px 6px;
+    background-image: url("./img/madera.png");
+    border: 1px solid red;
+}
+
+/*CSS para los encabezados de listas de definición que están dentro de los div
+  con id datos*/
+#datos dt {
+    font-weight: bold;
+}
+
+/*CSS para las definiciones de lista de definiciones que están dentro del div con
+   id datos*/
+#datos dd {
+    display: block;
+    width: 42px;
+    border: 1px solid #777;
+    padding: 2px;
+    text-align: right;
+    margin: 2px 0 12px 36px;
+}

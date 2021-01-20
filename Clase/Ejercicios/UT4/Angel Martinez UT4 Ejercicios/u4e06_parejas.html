@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u4e06_parejas</title>
+    <style>
+        
+        td {
+            border: 2px solid yellow;
+            background-color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // Vas a crear un juego de memorizar parejas.
+        // Consiste en encontrar parejas en un tablero de 12 cartas, que contiene 6 cartas repetidas de los personajes de los Simpson. 
+
+        // El juego consistirá en lo siguiente:
+        //  • La aplicación deberá tener una tabla con 3 filas y 4 columnas de un color. Además, habrá un cuadro de texto con el valor 0 pero no modificable y un botón que permita reiniciar el juego.
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Colocamos las fotos al azar en la tabla
+            let celdas = document.getElementsByTagName("td");
+            
+
+
+
+            //  • Cuando el usuario haga clic sobre una celda, se mostrará una imagen.
+            //  • Cuando el usuario haga clic sobre otra celda, se mostrará otra imagen.
+            //  • Si las dos imágenes son iguales, se mantendrá visibles y se añadirá 1 al cuadro de texto.
+            //  • Si las dos imágenes son diferentes, se ocultarán mostrando nuevamente el color inicial.
+            let respuestas = document.getElementsByClassName("respuesta");
+            for (let i = 0; i < respuestas.length; i++) {
+                const p = respuestas[i];
+                // Añadimos el evento a todas las celdas.
+                // Todos son de la clase "respuesta".
+                p.addEventListener("click", guardarSeleccion);
+                console.log("Evento clik añadido a radio button");
+            }
+
+        });
+
+
+
+
+        //  • Cuando se hayan completado las 6 parejas, se mostrará el mensaje: ¡¡GANASTE!!
+        //  • El botón de reiniciar el juego, cambia el orden de las cartas para volver a jugar. El siguiente método te puede ayudar, permite ordenar un array aleatoriamente:
+        //      array.sort(() => 0.5 - Math.random());
+    </script>
+
+    <!--  • La aplicación deberá tener una tabla con 3 filas y 4 columnas de un color. Además, habrá un cuadro de texto con el valor 0 pero no modificable y un botón que permita reiniciar el juego.  -->
+    <table>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+
+</html>
