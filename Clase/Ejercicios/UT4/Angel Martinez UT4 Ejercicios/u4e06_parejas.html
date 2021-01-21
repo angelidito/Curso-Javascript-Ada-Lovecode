@@ -6,9 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>u4e06_parejas</title>
     <style>
-        
-        td {
+        body {
+            background-color: rgb(29, 29, 60);
+        }
+
+        h1 {
+            text-align: center;
+            color: yellow;
+            margin: 0.2em;
+        }
+
+        table {
             border: 2px solid yellow;
+            margin: auto;
+        }
+
+        td {
+
+            border: 2px solid yellow;
+            background-color: tomato;
+        }
+
+        img {
+            height: 360px;
+            width: 220px;
             background-color: tomato;
         }
     </style>
@@ -16,65 +37,164 @@
 
 <body>
     <script>
-        // Vas a crear un juego de memorizar parejas.
-        // Consiste en encontrar parejas en un tablero de 12 cartas, que contiene 6 cartas repetidas de los personajes de los Simpson. 
+        console.log(
+            "Si pulsas muchas cartas en un intervalo de tiempo muy corto es probable que ocurra un error de concurrencia y se quede alguna de las cartas boca arriba."
+        );
 
-        // El juego consistirá en lo siguiente:
-        //  • La aplicación deberá tener una tabla con 3 filas y 4 columnas de un color. Además, habrá un cuadro de texto con el valor 0 pero no modificable y un botón que permita reiniciar el juego.
+        // Clase para facilitar el almacenamiento de la información de las cartas
+        class Simpson {
+            constructor(src, alt) {
+                this.src = src;
+                this.alt = alt;
+            }
+        }
 
+        // Las tres variables serán globales:
+        cartas = [
+            new Simpson("./simpson/a.png", "Abuelo"),
+            new Simpson("./simpson/a.png", "Abuelo"),
+            new Simpson("./simpson/b.png", "Bart"),
+            new Simpson("./simpson/b.png", "Bart"),
+            new Simpson("./simpson/h.png", "Homer"),
+            new Simpson("./simpson/h.png", "Homer"),
+            new Simpson("./simpson/l.png", "Lisa"),
+            new Simpson("./simpson/l.png", "Lisa"),
+            new Simpson("./simpson/m1.png", "Maggie"),
+            new Simpson("./simpson/m1.png", "Maggie"),
+            new Simpson("./simpson/m2.png", "Marge"),
+            new Simpson("./simpson/m2.png", "Marge")
+        ];
+        habiaYaUnaCartaGirada = false;
+        idCartaEstabaGirada = -1;
 
 
         document.addEventListener("DOMContentLoaded", () => {
 
-            // Colocamos las fotos al azar en la tabla
-            let celdas = document.getElementsByTagName("td");
-            
+            //Asigna la posiciones de las cartas de forma aleatoria
+            reset();
 
-
-
-            //  • Cuando el usuario haga clic sobre una celda, se mostrará una imagen.
-            //  • Cuando el usuario haga clic sobre otra celda, se mostrará otra imagen.
-            //  • Si las dos imágenes son iguales, se mantendrá visibles y se añadirá 1 al cuadro de texto.
-            //  • Si las dos imágenes son diferentes, se ocultarán mostrando nuevamente el color inicial.
-            let respuestas = document.getElementsByClassName("respuesta");
-            for (let i = 0; i < respuestas.length; i++) {
-                const p = respuestas[i];
-                // Añadimos el evento a todas las celdas.
+            // Evento click a las "?"
+            let interrogaciones = document.getElementsByClassName("?");
+            for (let i = 0; i < interrogaciones.length; i++) {
+                const interrogacion = interrogaciones[i];
+                // Añadimos el evento a todas las imagenes "?".
                 // Todos son de la clase "respuesta".
-                p.addEventListener("click", guardarSeleccion);
-                console.log("Evento clik añadido a radio button");
+                interrogacion.addEventListener("click", girarInterrogacion);
             }
+
+            // Reset
+            document.getElementsByTagName("input")[1].addEventListener("click", reset);
 
         });
 
 
+        function girarInterrogacion(e) {
+            let carta = e.target;
 
+            //  • Cuando el usuario haga clic sobre una celda, se mostrará una imagen.
+            // y cuando el usuario haga clic sobre otra celda, se mostrará la imagen.
+            // los id son la posición del array en la que está la carta del personaje
+            carta.src = cartas[carta.id].src;
+            carta.alt = cartas[carta.id].alt;
+            carta.class = "s";
+            carta.style.backgroundColor = "red";
+
+
+            if (!habiaYaUnaCartaGirada) {
+                // True porque la acabamos de girar
+                habiaYaUnaCartaGirada = true;
+
+                // Guardamos el id por si hay que ponerla boca abajo luego
+                idCartaEstabaGirada = carta.id;
+
+            } else {
+                habiaYaUnaCartaGirada = false;
+
+                // La que giramos antes
+                let cartaAnterior = document.getElementById(idCartaEstabaGirada);
+
+                //  • Si las dos imágenes son diferentes, se ocultarán mostrando nuevamente el color inicial.
+                if (carta.alt.localeCompare(cartaAnterior.alt) != 0) {
+
+                    setTimeout(() => {
+
+                        // La carta que acabamos de girar
+                        ponerCartaBocaAbajo(carta)
+
+                        // La que giramos antes
+                        ponerCartaBocaAbajo(cartaAnterior);
+
+                    }, 750);
+                }
+                //  • Si las dos imágenes son iguales, se mantendrá visibles y se añadirá 1 al cuadro de texto.
+                else {
+                    aumentarContador();
+                }
+
+            }
+
+        }
+        // Recibe un elemento img y le pone la imagen "?"
+        function ponerCartaBocaAbajo(carta) {
+            carta.src = "./simpson/pregunta.png";
+            carta.alt = "?";
+            carta.class = "?";
+            carta.style.backgroundColor = "tomato";
+        }
+
+        // Reinicia el juego
+        function reset() {
+            // Altera el orden de las cartas 
+            cartas.sort(() => 0.5 - Math.random());
+            // Contador a cero
+            let contador = document.getElementsByTagName("input")[0].value = 0;
+            // Pone boca abajo todas las cartas
+            for (let i = 0; i < document.getElementsByTagName("img").length; i++) {
+                const img = document.getElementsByTagName("img")[i];
+                ponerCartaBocaAbajo(img)
+            }
+        }
+
+        //aumenta el contador
+
+        function aumentarContador() {
+            let contador = document.getElementsByTagName("input")[0];
+            contador.value = parseInt(contador.value) + 1;
+            if (contador.value == 6) {
+                alert("¡¡GANASTE!!");
+            }
+        }
 
         //  • Cuando se hayan completado las 6 parejas, se mostrará el mensaje: ¡¡GANASTE!!
         //  • El botón de reiniciar el juego, cambia el orden de las cartas para volver a jugar. El siguiente método te puede ayudar, permite ordenar un array aleatoriamente:
         //      array.sort(() => 0.5 - Math.random());
     </script>
 
+
+    <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Simpson&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+            type="text" readonly value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Reset">
+    </h1>
     <!--  • La aplicación deberá tener una tabla con 3 filas y 4 columnas de un color. Además, habrá un cuadro de texto con el valor 0 pero no modificable y un botón que permita reiniciar el juego.  -->
     <table>
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="0"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="1"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="2"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="3"></td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="4"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="5"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="6"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="7"></td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="8"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="9"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="10"></td>
+            <td><img src="./simpson/pregunta.png" alt="?" class="?" id="11"></td>
         </tr>
+
     </table>
 </body>
 
