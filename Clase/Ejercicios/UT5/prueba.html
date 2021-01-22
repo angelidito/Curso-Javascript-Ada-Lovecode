@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba</title>
+</head>
+
+<body>
+    <p>PARRAFO 1</p>
+
+    <script>
+
+        let parrafos = document.getElementsByTagName("p");
+
+        document.write("Nº de parrafos: " + parrafos.length);
+
+        document.write("<p>PARRAFO 2</p>");
+
+        document.write("Nº de parrafos: " + parrafos.length);
+        // Ahora vale 2, se ha actualizado (?)
+
+    </script>
+
+</body>
+
+</html>
