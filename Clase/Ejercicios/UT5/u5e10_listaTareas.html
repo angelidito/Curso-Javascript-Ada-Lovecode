@@ -18,6 +18,7 @@
         // Crea una pequeña aplicación web para crear y mantener una lista de las tareas que tengamos pendientes.
         n = 0;
 
+        let tareas = [''];
         document.addEventListener('DOMContentLoaded', () => {
 
             // Elemetos HTML
@@ -27,7 +28,7 @@
             // Recuperamos las tareas de localStorage
             recuperarTareas();
             // Aquí se guardan durante la ejecución y se actualiza el localStorage cada vez que se añade una tarea:
-            tareas = [];
+            console.log('tareas.length -> ' + tareas.length);
 
             // Eventos de los botones:
             //  - para añadir la tarea (solo si hay algo en el textArea)
@@ -44,21 +45,22 @@
 
         // Añadie una tarea a la lista. Si no se le pasa un parámetro añade el contenido del textarea como tarea, pero si este está también vacío, no hará nada.
         function añadirTarea(tarea = '') {
-            console.log('tarea a añadir: '+ tarea);
+            console.log('tarea a añadir: ' + tarea);
             if (tarea == '')
                 tarea = textArea.value;
 
-            if (tarea != '') {
+            if (tarea !== '') {
 
-                // Actualizamos las tareas en el local storage
+                // Actualizamos el array de tareas 
                 tareas.push(tarea);
-                console.log('array treas: '+tareas);
+                console.log('array treas: ' + tareas);
+                // Yactualizamos las tareas en el local storage
                 guardarTareas();
 
                 //  - Las tareas se mostrarán dentro de una lista <ul> 
                 let li = document.createElement('li');
                 // Introducimos el texto
-                li.innerHTML= tarea;
+                li.innerHTML = tarea+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                 // Reseteamos el valor del textarea
                 textArea.value = '';
 
@@ -84,6 +86,7 @@
         function elimiarTarea(e) {
             console.log(n++);
             let div = e.target.parentNode;
+            tareas.splice()//TODO
             div.remove();
         }
 
@@ -109,21 +112,25 @@
 
             localStorage.setItem('tareas-u5e10_listaTareas', JSON.stringify(tareas));
 
-            console.log('guardarTareas()\nAhora el localStorage contiene: '+localStorage.getItem('tareas-u5e10_listaTareas'));
+            console.log('guardarTareas()\nAhora el localStorage contiene: ' + localStorage.getItem(
+                'tareas-u5e10_listaTareas'));
         }
 
         //  * Para obtener el array de nuevo desde la cadena almacenada, puedes utilizar JSON.parse(varLocalStorage).
         function recuperarTareas() {
-            console.log('recuperarTareas ' + n++);
+
             // Para evitar errores la primera vez que se inicia la aplicación,
             // hacemos una pequeña comprobación:
             let valorAlmacenado = localStorage.getItem('tareas-u5e10_listaTareas');
+            // Si no es la primera vez que se incia tendrá un valor adecuado
             if (valorAlmacenado != undefined && valorAlmacenado != null) {
-                ;
-                for (let i = 0; i < JSON.parse(valorAlmacenado).length; i++) {
-                    const t = tareas[i];
+
+                let tareasAlmacenadas = JSON.parse(valorAlmacenado)
+                for (let i = 0; i < tareasAlmacenadas.length; i++) {
+                    const t = tareasAlmacenadas[i];
                     console.log('BUCLE recuperarTareas\nRecuperando: ' + t);
-                    añadirTarea(t);
+                    if (t != '')
+                        añadirTarea(t);
                 }
             }
 
