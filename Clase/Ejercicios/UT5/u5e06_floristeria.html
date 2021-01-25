@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 5 - Ejercicio 6</title>
+    <style>
+        table,
+        td {
+            border: 1px solid green;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Tabla
+            tabla = document.getElementById('tabla');
+
+            // Asignación de eventos:
+            document.getElementById('generar').addEventListener('click', generar);
+            document.getElementById('borrar').addEventListener('click', borrar);
+            document.getElementById('mostrar').addEventListener('click', mostrar);
+        }); 
+
+        // • Generar planta: solicitará al usuario la información de la planta (nombre, ubicación, ejemplares y flor) con 4 prompt y una vez introducidos los datos se creará un nueva fila en la tabla.
+        function generar() {
+            let fila = tr(
+                td(prompt('Nombre de la planta:')) +
+                td(prompt('Ubicación de la planta:')) +
+                td(prompt('Ejemplares de la planta:')) +
+                td(prompt('Flor:'))
+            );
+
+            tabla.innerHTML += fila;
+        }
+
+        //  Devuelve una etiqueta tr con el contenido pasado 
+        function tr(contenido) {
+            return '<tr>' + contenido + '</tr>';
+        }
+
+        //  Devuelve una etiqueta td con el contenido pasado 
+        function td(contenido) {
+            return '<td>' + contenido + '</td>';
+        }
+
+        // • Borrar fila: borrará la última fila introducida.
+        function borrar() {
+            tabla.removeChild(tabla.lastChild);
+        }
+
+        // • Mostrar número de filas: al hacer clic en este botón, se mostrará el número de filas de la tabla.
+        function mostrar() {
+            alert('Nº de filas: ' + tabla.getElementsByTagName('tr').length + '.')
+        }
+    </script>
+    <h4>Página en la que generar filas de una tabla con información de plantas de una floristería, haciendo uso del DOM
+        del documento.</h4>
+    <h5>Para ello, dispones de tres botones:</h5>
+    <button id="generar">Generar planta</button>
+    <button id="borrar">Borrar fila</button>
+    <button id="mostrar">Mostrar nº de filas</button>
+    <table id="tabla">
+        
+    </table>
+</body>
+
+</html>

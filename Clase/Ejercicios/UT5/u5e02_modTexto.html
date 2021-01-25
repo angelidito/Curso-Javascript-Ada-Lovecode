@@ -8,6 +8,45 @@
 </head>
 
 <body>
+    <script>
+        // Completa el documento, para que, al hacer clic sobre el botón Cambiar, se modifique el tamaño de la fuente y el color del texto de los párrafos del documento. Los valores permitidos de encuentran definidos en los desplegables
+
+
+        // Añadimos el evento
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("actualizar").addEventListener("click", actualizar);
+        });
+
+        // Función que actualizará el texto al hacer clic en el botón
+        function actualizar() {
+
+            let tam = getSelectedValueFromSelectWithId("tam");
+            let color = getSelectedValueFromSelectWithId("color");
+
+            // Cambiamos los colores los tamaños de la fuente a los parrafos.
+            let parrafos = document.getElementsByTagName("p");
+            for (let i = 0; i < parrafos.length; i++) {
+                const p = parrafos[i];
+                p.style.setProperty("color", color);
+                p.style.setProperty("font-size", tam);
+            }
+
+        }
+
+        // Devuelve el value de la opción selecionada dentro del select con id == parametro pasado
+        function getSelectedValueFromSelectWithId(id) {
+
+            let select = document.getElementById(id);
+            for (let i = 0; i < select.getElementsByTagName("option").length; i++) {
+                const op = select.getElementsByTagName("option")[i];
+                if (op.selected)
+                    return op.getAttribute("value");
+            }
+
+        }
+    </script>
+
+
     <h1>Modificar estilos del texto</h1>
     <div>
         <span>Seleccionar tamaño texto: </span>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u5e07_animales</title>
+</head>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Div donde irán las imágenes:
+            div = document.getElementById('imgs');
+
+            // Eventos:
+            document.getElementById('generar').addEventListener('click', generar);
+            document.getElementById('borrar').addEventListener('click', borrar);
+            document.getElementById('perros').addEventListener('click', perros);
+            document.getElementById('gatos').addEventListener('click', gatos);
+            document.getElementById('hurones').addEventListener('click', hurones);
+        });
+
+        // • Generar personaje:
+        //      o Cuando hacemos clic en el botón deberá aparecer un prompt con el siguiente texto: “Elige animal: 1. Perro, 2. Gato, 3. Hurón.
+        //      o Cuando el usuario elija un número, mediante un switch, mostrará la imagen del animal elegido (dispones de las 3 imágenes en la carpeta imgAnimales).
+        function generar() {
+
+            let alt;
+
+            switch (prompt('Elige animal: 1. Perro, 2. Gato, 3. Hurón')) {
+                case '1':
+                    alt = 'perro';
+                    div.innerHTML += img('./imgAnimales/perro.jpg', alt)
+                    break;
+
+                case '2':
+                    alt = 'gato';
+                    div.innerHTML += img('./imgAnimales/gato.jpg', alt)
+                    break;
+
+                case '3':
+                    alt = 'hurón'
+                    div.innerHTML += img('./imgAnimales/huron.jpg', alt)
+                    break;
+
+            }
+        }
+
+        //  Devuelve una etiqueta img con el contenido pasado 
+        function img(src, alt) {
+            return '<img src="' + src + '" alt="' + alt + '">';
+        }
+
+
+        // • Borrar personaje: este botón borrará la última imagen introducida.
+        function borrar() {
+            div.removeChild(div.lastChild);
+        }
+
+
+        // • Botones Nº perros, Nº gatos, Nº hurones: al hacer clic en cada uno de ellos, mostrará el número de imágenes que hay de cada animal. No utilices un contador al generar las imágenes, cuenta el número de nodos de cada imagen que haya.
+
+        function perros() {
+            let n = 0;
+            for (let i = 0; i < div.getElementsByTagName('img').length; i++) {
+                const img = div.getElementsByTagName('img')[i];
+                if (img.getAttribute('alt') == 'perro')
+                    n++;
+
+            }
+            alert('Nº de perros: ' + n);
+        }
+
+        function gatos() {
+            let n = 0;
+            for (let i = 0; i < div.getElementsByTagName('img').length; i++) {
+                const img = div.getElementsByTagName('img')[i];
+                if (img.getAttribute('alt') == 'gato')
+                    n++;
+
+            }
+            alert('Nº de gatos: ' + n);
+        }
+
+        function hurones() {
+            let n = 0;
+            for (let i = 0; i < div.getElementsByTagName('img').length; i++) {
+                const img = div.getElementsByTagName('img')[i];
+                if (img.getAttribute('alt') == 'hurón')
+                    n++;
+
+            }
+            alert('Nº de hurones: ' + n);
+        }
+        // • Botones Nº perros, Nº gatos, Nº hurones: al hacer clic en cada uno de ellos, mostrará el número de imágenes que hay de cada animal. No utilices un contador al generar las imágenes, cuenta el número de nodos de cada imagen que haya.
+    </script>
+
+    <p><button id="generar">Generar personaje</button>
+        <button id="borrar">Borrar personaje</button>
+        <button id="perros">Nº perros</button>
+        <button id="gatos">Nº gatos</button>
+        <button id="hurones">Nº hurones</button></p>
+    <div id="imgs"></div>
+</body>
+
+</html>

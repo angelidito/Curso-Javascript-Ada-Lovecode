@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 5 - Ejercicio 4</title>
+</head>
+
+<body>
+    <script>
+        // Completa la página webselectAsociados.html, para que, al seleccionar una Comunidad Autónoma en el primer select,se carguen las provincias que correspondan en el segundo select. Para resolverlo, deberás utilizar el evento change, que se lanza cada vez que cambiamos la opción seleccionada en un select
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("ccaa").addEventListener("change", cambiar)
+        });
+
+        function cambiar() {
+
+            // Array con arrays de las provincias
+            let arrProvincias = [
+                ["-"],
+                ["Avila", "Burgos", "Leon", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora"],
+                ["Madrid"],
+                ["A Coruña", "Lugo", "Ourense", "Pontevedra"],
+                ["Alava", "Guipuzcoa", "Vizcaya"]
+            ];
+
+            // Valor de la CA selecionada
+            let ca = getSelectedValueFromSelectWithId("ccaa");
+
+            let provincias = document.getElementById("provincia");
+
+            provincias.innerHTML = optionTag('-');
+
+            for (let i = 0; i < arrProvincias[ca].length; i++) {
+                const p = arrProvincias[ca][i];
+                provincias.innerHTML += optionTag(p);
+            }
+
+
+        }
+
+
+        //  Devuelve una etiqueta html option con los valores pasados 
+        function optionTag(innerHTML = "", value = innerHTML) {
+            return '<option value="' + value + '">' +
+                innerHTML +
+                '</option>';
+        }
+
+        // Devuelve el valor de la opción selecionada dentro del select con id igual al parametro pasado. Devuelve null si no ha encontrado nada.
+        function getSelectedValueFromSelectWithId(id) {
+            let select = document.getElementById(id);
+            for (let i = 0; i < select.getElementsByTagName("option").length; i++) {
+                const op = select.getElementsByTagName("option")[i];
+                if (op.selected)
+                    return op.getAttribute("value");
+            }
+            return null;
+        }
+    </script>
+    
+    <form id="formu" action="#">
+        <select id="ccaa">
+            <option value="0" selected="selected">Seleccione...</option>
+            <option value="1">Castilla y León</option>
+            <option value="2">Comunidad Madrid</option>
+            <option value="3">Galicia</option>
+            <option value="4">País Vasco</option>
+        </select>
+        <select id="provincia">
+            <option value="-">-</option>
+        </select>
+    </form>
+</body>
+
+</html>

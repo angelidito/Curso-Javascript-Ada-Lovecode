@@ -6,6 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unidad 5 - Ejercicio 3</title>
 </head>
+<script>
+    // Completa la página webintercambioInformacion.html, para que, al hacer clic sobre el botón Añadir,se añada la opción seleccionada en el selectal texarea. 
+    // Has de tener en cuenta que, cuando se almacene un elemento nuevo en el textarea, los que hemos seleccionado anteriormente, deben permanecer hasta que se recargue la página
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("mueve").addEventListener("click", añadir);
+
+    });
+
+    function añadir() {
+        // Obtenemos el valor selecionado
+        let value = getSelectedValueFromSelectWithId("productos");
+
+        // Otenemos el textarea
+        let textarea = document.getElementsByTagName("textarea")[0];
+
+        // Añadimos el valor al textarea
+        if (value != "")
+            textarea.innerHTML = textarea.innerHTML + value + "\n";
+
+    }
+
+    // Devuelve el valor de la opción selecionada dentro del select con id igual al parametro pasado. Devuelve null si no ha encontrado nada.
+    function getSelectedValueFromSelectWithId(id) {
+
+        let select = document.getElementById(id);
+        for (let i = 0; i < select.getElementsByTagName("option").length; i++) {
+            const op = select.getElementsByTagName("option")[i];
+            if (op.selected)
+                return op.getAttribute("value");
+        }
+
+        return null;
+    }
+</script>
 
 <body>
     <form action="#" id="origen">
