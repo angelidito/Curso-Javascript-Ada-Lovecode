@@ -15,10 +15,9 @@
 
 <body>
     <script>
-        // Crea una pequeña aplicación web para crear y mantener una lista de las tareas que tengamos pendientes.
-        n = 0;
+        // Aquí se guardan durante la ejecución y se actualiza el localStorage cada vez que se añade una tarea
+        let tareas = [];
 
-        let tareas = [''];
         document.addEventListener('DOMContentLoaded', () => {
 
             // Elemetos HTML
@@ -27,8 +26,6 @@
 
             // Recuperamos las tareas de localStorage
             recuperarTareas();
-            // Aquí se guardan durante la ejecución y se actualiza el localStorage cada vez que se añade una tarea:
-            console.log('tareas.length -> ' + tareas.length);
 
             // Eventos de los botones:
             //  - para añadir la tarea (solo si hay algo en el textArea)
@@ -45,22 +42,23 @@
 
         // Añadie una tarea a la lista. Si no se le pasa un parámetro añade el contenido del textarea como tarea, pero si este está también vacío, no hará nada.
         function añadirTarea(tarea = '') {
-            console.log('tarea a añadir: ' + tarea);
+            // SI NO HA PASADO PARAMETRO TAREA VALE '' POR DEFECTO
+            // Por lo que coge el valor el textarea
             if (tarea == '')
                 tarea = textArea.value;
 
+            // Ahora, si tarea NO es un string vacio, entra en el if
             if (tarea !== '') {
 
                 // Actualizamos el array de tareas 
                 tareas.push(tarea);
-                console.log('array treas: ' + tareas);
-                // Yactualizamos las tareas en el local storage
+                // Y actualizamos las tareas en el local storage
                 guardarTareas();
 
-                //  - Las tareas se mostrarán dentro de una lista <ul> 
+                // - Las tareas se mostrarán dentro de una lista como li 
                 let li = document.createElement('li');
                 // Introducimos el texto
-                li.innerHTML = tarea+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                li.innerHTML = tarea;
                 // Reseteamos el valor del textarea
                 textArea.value = '';
 
@@ -75,19 +73,59 @@
                 // div contenedor del elemento de la lista y del botón
                 let div = document.createElement('div');
 
-                // Añadimos al arbol
+                // Añadimos al arbol:
+                // El botón ES HIJO de li. Esto es importante porque no me funcionaba una cosas pensando que eran hermanos...
                 li.appendChild(botonEliminar);
                 div.appendChild(li);
+                // - Las tareas se mostrarán dentro de una lista como <ul>
                 lista.appendChild(div);
             }
         }
 
         //  - E irán junto a un icono que, al hacer clic sobre él, nos permitirá eliminar solamente la tarea correspondiente.
         function elimiarTarea(e) {
-            console.log(n++);
-            let div = e.target.parentNode;
-            tareas.splice()//TODO
-            div.remove();
+            // li
+            let li = e.target.parentNode;
+            // Tarea contenida en el li:
+            // let tarea = li.innerHTML;
+            // PERO como el elemento li contiene el botón, vamos a borrar antes el botón:
+            e.target.remove();
+            // (ahora que lo pienso debería de haber metido el texto
+            // en un span y haberlo sacado de ahí, no tendría que haber 
+            // borrado el span y podría haber añadido un par de espacios 
+            // de separación entre el texto y el botón, 
+            // aunque esto ultimo creo que lo voy a arreglar ahora mismo con un margenLeft
+
+            // Ahora ya solo contiene la tarea:
+            let tarea = li.innerHTML;
+
+            // Índice de la tarea en el array tareas
+            let index = tareas.indexOf(tarea);
+
+            //Borramos la tarea del array tareas
+            if (index != -1)
+                tareas.splice(index, 1);
+
+            // Y borramos el div que contiene al li que contiene al button
+            li.parentNode.remove();
+
+
+            // Por último, actualizamos las tareas en el localStorage
+            guardarTareas();
+
+
+            console.log('guardarTareas()\nAhora el localStorage contiene: ' + localStorage.getItem(
+                'tareas-u5e10_listaTareas') + '\nAhora el array tareas coneiene: ' + tareas);
+        }
+
+        // Actualiza las tareas en el localStorage.
+        // Se llama a esta funcion al añadir una tarea y al borrar una o todas las tareas.
+        function guardarTareas() {
+
+            localStorage.setItem('tareas-u5e10_listaTareas', JSON.stringify(tareas));
+
+            // console.log('guardarTareas()\nAhora el localStorage contiene: ' + localStorage.getItem(
+            //     'tareas-u5e10_listaTareas') + '\nAhora el array tareas coneiene: ' + tareas);
         }
 
         function eliminarTodasLasTareas() {
@@ -97,47 +135,30 @@
 
             // Vaciamos el array tareas
             tareas = []
-            // Guardamos el array vacío en el localStorege usando la función de JSON.
-            // Podria darle valor null o undefined ya que lo contemplo en la función recuperarTareas(), pero vamos a hacer las cosas ''bien''. Vamos a dejar eso sólo para la primera ejecución de la aplicación.
-            localStorage.setItem('tareas-u5e10_listaTareas', JSON.stringify(tareas));
+
+            // Actualizamos las tareas en el localStorage
+            guardarTareas()
 
             // Foco del teclaro al textarea
             textArea.focus();
-        }
-
-        // Una vez que compruebes que todo funciona bien, modifica el programa para que no se pierdan las tareas cada vez que cerramos el navegador. 
-        // Para ello, podemos utilizar localStorage.
-        //  * Para almacenar las tareas, se puede crear un array de strings y se puede utilizar JSON.stringify(miArray) que devuelve una cadena que se puede almacenar con localStorage.
-        function guardarTareas() {
-
-            localStorage.setItem('tareas-u5e10_listaTareas', JSON.stringify(tareas));
-
-            console.log('guardarTareas()\nAhora el localStorage contiene: ' + localStorage.getItem(
-                'tareas-u5e10_listaTareas'));
         }
 
         //  * Para obtener el array de nuevo desde la cadena almacenada, puedes utilizar JSON.parse(varLocalStorage).
         function recuperarTareas() {
 
             // Para evitar errores la primera vez que se inicia la aplicación,
-            // hacemos una pequeña comprobación:
+            // hacemos una pequeña comprobación con
             let valorAlmacenado = localStorage.getItem('tareas-u5e10_listaTareas');
+
             // Si no es la primera vez que se incia tendrá un valor adecuado
             if (valorAlmacenado != undefined && valorAlmacenado != null) {
-
                 let tareasAlmacenadas = JSON.parse(valorAlmacenado)
+
                 for (let i = 0; i < tareasAlmacenadas.length; i++) {
                     const t = tareasAlmacenadas[i];
-                    console.log('BUCLE recuperarTareas\nRecuperando: ' + t);
-                    if (t != '')
-                        añadirTarea(t);
+                    añadirTarea(t);
                 }
             }
-
-
-
-
-
         }
     </script>
     <!-- La página constará de un formulario con: -->
