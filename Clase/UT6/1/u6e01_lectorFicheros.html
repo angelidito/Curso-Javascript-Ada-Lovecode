@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" name="url" id="url">
+    <button id="mostrar">Mostrar contenido</button>
+    <textarea name="contenido" id="contenido" cols="60" rows="20"></textarea>
+    <script>
+        // Crea una página web con las siguientes características:
+        // • Tendrá un campo de texto en el que, nada más cargarse la página, se muestre la URL de la misma. Ese campo se puede editar por el usuario.
+        // • Un botón junto al campo de texto que se llame “Mostrar contenido”. Al hacer clic sobre él, se cargará en un textarea el contenido del archivo indicado en el campo de texto.
+        // • El textarea, inicialmente estará vacío.
+
+
+        document.addEventListener("DOMContentLoaded", inicio);
+
+        function inicio() {
+            document.getElementById("url").value = document.URL;
+            document.getElementById("mostrar").addEventListener("click", cargar);
+        }
+
+        function cargar() {
+            let miURL = document.getElementById("url").value;
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", gestionServidor);
+
+            function gestionServidor() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("contenido").innerHTML = xhr.responseText;
+                }
+            }
+            xhr.open("GET", miURL);
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>
