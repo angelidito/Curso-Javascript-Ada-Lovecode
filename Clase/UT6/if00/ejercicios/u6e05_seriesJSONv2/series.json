@@ -1,0 +1,22 @@
+[{
+        "titulo": "Serie 1",
+        "cadena": "Netflix",
+        "director": "Pepe",
+        "anno": 2000,
+        "terminada": "Sí"
+    },
+    {
+        "titulo": "Serie 2",
+        "cadena": "HBO",
+        "director": "Pepa",
+        "anno": 1990,
+        "terminada": "No"
+    },
+    {
+        "titulo": "Serie 3",
+        "cadena": "Movistar",
+        "director": "Mary",
+        "anno": 2015,
+        "terminada": "Sí"
+    }
+]

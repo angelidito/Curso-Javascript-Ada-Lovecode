@@ -11,4 +11,3 @@ $objeto->pais = "Reino Unido";
 $miJSON = json_encode($objeto);
 
 echo $miJSON;
-?>

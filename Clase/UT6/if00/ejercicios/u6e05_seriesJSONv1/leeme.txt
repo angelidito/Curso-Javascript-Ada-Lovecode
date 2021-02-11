@@ -1,0 +1,1 @@
+El objeto JSON se define directamente como un objeto, que tiene un solo elemento, que es un Array. En el código JavaScript solamente cambia la línea 82.
