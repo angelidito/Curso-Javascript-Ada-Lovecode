@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba 2ª evaluación</title>
+    <style>
+        h1 {
+            color: darkred;
+        }
+
+        ul,
+        li {
+            list-style: none;
+            padding: 0;
+        }
+
+        label {
+            display: inline-block;
+            width: 12em;
+            text-align: right;
+            margin-right: 0.5em;
+        }
+
+        input {
+            width: 20em;
+        }
+
+        .rojo {
+            border-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", inicio);
+
+        function inicio() {
+            document.getElementById('alta').addEventListener("click", validar);
+            document.getElementById('alta').addEventListener("click", validar);
+        }
+
+
+        function validar(e) {
+            // let nombre = document.getElementById('nombre');
+            // let nif = document.getElementById('nif');
+            // let grupo = document.getElementById('grupo');
+            // let observaciones = document.getElementById('observaciones');
+
+            let inputs = document.getElementsByTagName('input');
+
+            let hayErrores = false;
+
+            let datos = [];
+
+            for (let i = 0; i < inputs.length; i++) {
+
+                const input = inputs[i];
+                let errorAqui = false;
+
+                function errorEncontrtado() {
+                    errorAqui = true;
+                    if (!hayErrores) {
+                        input.focus();
+                        hayErrores = true;
+                        e.preventDefault();
+                    }
+                }
+
+                let span = input.parentElement.getElementsByTagName("span")[0];
+                if (!/./.test(input.value)) {
+
+                    errorEncontrtado();
+
+
+                }
+
+                if (i === 1) {
+                    if (yaExisteNIF(input.value)) {
+                        errorEncontrtado();
+                    }
+                }
+                if (i === 2) {
+                    if (!/^\d\d[1-2][ABFGE]$/.test(input.value)) {
+                        errorEncontrtado();
+                    }
+                }
+                if (errorAqui) {
+                    span.innerHTML = "Error...";
+                    span.style.backgroundColor = 'red';
+                } else {
+
+                    span.innerHTML = "";
+                    span.style.backgroundColor = 'red';
+                }
+
+            }
+
+
+            if (!hayErrores) {
+                // almacenamos
+                let nombre = document.getElementById('nombre').value;
+                let nif = document.getElementById('nif').value;
+                let grupo = document.getElementById('grupo').value;
+                let observaciones = document.getElementById('observaciones').value;
+
+                datos.push(nombre, nif, grupo, observaciones);
+
+            }
+        }
+
+
+
+        function yaExisteNIF(NIF) {
+
+            let celdas = document.getElementById("matriculados").getElementsByTagName("td");
+
+            for (let i = 0; i < celdas.length; i++) {
+                const td = celdas[i];
+
+                // corresponderia a la columna del NIF
+                if (i % 4 == 1) {
+                    // Si ya existe el nif
+                    if (td.innerHTML === NIF)
+                        return true;
+                }
+            }
+            return false;
+        }
+        // let nombre = document.getElementById('nombre');
+        // let nif = document.getElementById('nif');
+        // let grupo = document.getElementById('grupo');
+        // let observaciones = document.getElementById('observaciones');
+    </script>
+
+    <h1>Matrícula alumnos</h1>
+    <form>
+        <ul>
+            <li>
+                <label for="nombre">Nombre y apellidos: </label>
+                <input type="text" id="nombre" name="nombre">
+                <span id="nombreErr"></span>
+            </li>
+            <li>
+                <label for="nif">NIF: </label>
+                <input type="text" id="nif" name="nif">
+                <span id="nifErr"></span>
+            </li>
+            <li>
+                <label for="grupo">Grupo: </label>
+                <input type="text" id="grupo" name="grupo">
+                <span id="grupoErr"></span>
+            </li>
+            <li>
+                <label for="observaciones">Observaciones: </label>
+                <input type="text" id="observaciones" name="observaciones">
+                <span id="observacionesErr"></span>
+            </li>
+        </ul>
+        <button id="alta">Alta</button>
+    </form>
+    <div id="matriculados"></div>
+    <script>
+
+    </script>
+
+</body>
+
+</html>

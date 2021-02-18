@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba 2ª evaluación</title>
+    <style>
+        .hoja {
+            color: green;
+        }
+
+        .rama {
+            color: brown;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", inicio);
+
+        function inicio() {
+
+            let body = document.getElementsByTagName("body")[0];
+            let h3 = document.createElement("h3");
+            h3.innerHTML = 'Primer árbol';
+
+            body.insertBefore(h3, document.getElementsByTagName("ul")[0]);
+
+            h3.style.backgroundColor = 'green';
+            h3.style.fontSize = '2em';
+            h3.style.textAlign = 'center';
+
+            document.getElementById('boton').addEventListener("click", borrar);
+        }
+
+        function borrar() {
+            let texto = prompt("Introduce el texto de la hoja a borrar");
+
+            let hojas = document.getElementsByClassName("hoja");
+
+            let encontrada = false;
+            for (let i = 0; i < hojas.length && !encontrada; i++) {
+                const hoja = hojas[i];
+
+                if (hoja.innerHTML === texto) {
+                    encontrada = true;
+                    hoja.parentElement.removeChild(hoja);
+                }
+            }
+            if (!encontrada) {
+                alert("No se ha encontrado la hoja");
+            }
+        }
+    </script>
+    <ul class="arbol">
+        <li class="rama">Rama A
+            <ul class="rama">
+                <li class="hoja">Hoja A1</li>
+                <li class="hoja">Hoja A2</li>
+            </ul>
+        </li>
+        <li class="rama">Rama B
+            <ul>
+                <li class="hoja">Hoja B1</li>
+                <li class="rama">Rama BA
+                    <ul class="rama">
+                        <li class="hoja">Hoja BA1</li>
+                        <li class="hoja">Hoja BA2</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="rama">Rama C
+            <ul class="rama">
+                <li class="hoja">Hoja C1</li>
+                <li class="hoja">Hoja C2</li>
+            </ul>
+        </li>
+        <li class="rama">Rama D
+            <ul class="rama">
+                <li class="hoja">Hoja D1</li>
+            </ul>
+        </li>
+    </ul>
+    <button id="boton">Borrar hoja</button>
+
+</body>
+
+</html>
