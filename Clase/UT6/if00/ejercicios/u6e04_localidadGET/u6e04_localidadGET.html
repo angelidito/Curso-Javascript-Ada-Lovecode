@@ -44,6 +44,7 @@
             } else {
                 let xhr = new XMLHttpRequest();
                 xhr.addEventListener("readystatechange", gestionServidor);
+
                 function gestionServidor() {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let resp = xhr.responseText;

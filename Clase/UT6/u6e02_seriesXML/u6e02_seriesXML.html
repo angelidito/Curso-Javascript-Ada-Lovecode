@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="texto">
+        <h1>SERIES</h1>
+        <button id="cargaSeries">Carga series</button>
+    </div>
+    <table id="demo"></table>
+
+    <script>
+        document.getElementById("cargaSeries").addEventListener("click", cargarSeries);
+
+        function cargarSeries() {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    cargarXML(this);
+
+                } else if (this.status > 400) {
+                    document.getElementById("demo").innerHTML =
+                        "<tr><th>Ha ocurrido un problema al cargar el recurso solicitado.</th></tr>";
+                }
+            });
+
+            xhr.open("GET", "series.xml");
+            xhr.send();
+        }
+
+        function cargarXML(xml) {
+
+            let docXML = xml.responseXML;
+
+            let tabla = "<tr><th>Titulo</th><th>Cadena</th><th>Director</th><th>Año</th><th>Terminada</th></tr>";
+
+            let series = docXML.getElementsByTagName("SERIE");
+
+            for (let i = 0; i < series.length; i++) {
+                const serie = series[i];
+                tabla += "<tr>";
+                tabla += "<td>" + serie.getElementsByTagName("TITULO")[0].textContent + "</td>";
+                tabla += "<td>" + serie.getElementsByTagName("CADENA")[0].textContent + "</td>";
+                tabla += "<td>" + serie.getElementsByTagName("DIRECTOR")[0].textContent + "</td>";
+                tabla += "<td>" + serie.getElementsByTagName("ANNO")[0].textContent + "</td>";
+                tabla += "<td>" + serie.getElementsByTagName("TERMINADA")[0].textContent + "</td>";
+                tabla += "</tr>";
+            }
+
+            document.getElementById("demo").innerHTML = tabla;
+
+        }
+        // Crea un archivo series.xml con información de series:
+        // • Series: será el elemento principal del XML.
+        // o Serie: contendrá los datos de una serie en concreto, que serán: 
+        // ▪ Título: nombre de la serie.
+        // ▪ Plataforma: nombre de la cadena que produce la serie (HBO, Netflix, etc.)
+        // ▪ Director: nombre del director de la serie.
+        // ▪ Año: año de estreno de la serie.
+        // ▪ Terminada: podrá contener un valor “sí” o “no” en función si ha
+        // terminado o no su emisión.
+        // Crea una página web que, al cargarse, haga una petición AJAX al servidor, que le devolverá el archivo XML.
+        // Si el archivo series.xml no existe o no se ha podido cargar correctamente, se mostrará un texto indicándolo en la pantalla.
+        // Si el archivo se carga correctamente, en la página se generará una tabla con los datos de las series, teniendo en cuenta las siguientes condiciones:
+        // • El título, la cadena y el director: el título será negrita, y el director en cursiva.
+        // • El año aparecerá en color rojo si la serie es anterior al año 2000, en amarillo si está
+        // entre el 2001 y el 2010 y en verde si es posterior al 2011. Estas variaciones se recogen
+        // en un archivo en CSS con reglas, como por ejemplo: .rojo, .amarillo o .verde.
+        // • En la celda terminada habrá un icono que indique si la serie se ha terminado o no su emisión. Para ello, utiliza una fuente de iconos como por ejemplo Font Awesome (ver
+        // ejemplo de cómo hacerlo en la carpeta “prueba-fuentes”) o una imagen.
+    </script>
+</body>
+
+</html>

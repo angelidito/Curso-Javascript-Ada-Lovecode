@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unidad 6 - Ejercicio 3: XML con AJAX</title>
-
 </head>
 
 <body>
@@ -29,38 +28,54 @@
     </div>
 
     <script>
+        // Crea un archivo viajes.xml, donde se registren los posibles viajes (origen y destino) que ofrece una empresa de autobuses.
+        // Los orígenes y destinos posibles son:
+        // • De Madrid: a Barcelona, Valencia y Sevilla.
+        // • De Barcelona: a Madrid y Zaragoza.
+        // • De Valencia: a Madrid.
+
+        // Crea una página web formada por:
+        // • Una lista desplegable donde se encuentre el listado de orígenes posibles y otro para
+        // los destinos.
+        // • Al cargar la página web, se obtendrá del servidor el archivo viajes.xml y se cargará en
+        // el primer desplegable, la lista de orígenes posibles.
+        // • Una vez seleccionado uno de los orígenes, se mostrará la lista de destinos para ese origen.
+
+
         document.addEventListener("DOMContentLoaded", inicio);
 
         function inicio() {
             cargarOrigenes();
-            document.getElementById("origen").addEventListener("change", cargarDestinos);
+            document.getElementById('origen').addEventListener('change', cargarDestinos);
         }
 
-        // ORÍGENES
         function cargarOrigenes() {
             let xhr = new XMLHttpRequest();
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4 && this.status === 200) {
+                    console.log("skdjfhalkfh");
                     cargarXMLOrigenes(this);
                     cargarDestinos();
                 }
             });
             xhr.open("GET", "viajes.xml");
-
             xhr.send();
         }
 
         function cargarXMLOrigenes(xml) {
+
             let docXML = xml.responseXML;
-            let opciones = "";
+
             let origenes = docXML.getElementsByTagName("ORIGEN");
+            let opciones = '';
             for (let i = 0; i < origenes.length; i++) {
-                opciones += "<option>" + origenes[i].textContent + "</option>";
+                opciones += '<option>' + origenes[i].textContent + '</option>';
             }
-            document.getElementById("origen").innerHTML = 'opciones';
+
+            document.getElementById('origen').innerHTML = opciones;
+
         }
 
-        // DESTINOS
         function cargarDestinos() {
             let xhr = new XMLHttpRequest();
             xhr.addEventListener("readystatechange", function () {
@@ -69,26 +84,28 @@
                 }
             });
             xhr.open("GET", "viajes.xml");
-
             xhr.send();
         }
 
         function cargarXMLDestinos(xml) {
-            // origen seleccionado
-            let origenSeleccionado = document.getElementById("origen").value;
+
             let docXML = xml.responseXML;
-            let opciones = "";
+
+
             let origenes = docXML.getElementsByTagName("ORIGEN");
-            let destinos;
-            for (let i = 0; i < origenes.length; i++) {
-                if (origenes[i].textContent === origenSeleccionado) {
-                    destinos = origenes[i].parentElement.getElementsByTagName("DESTINO");
+            let opciones = '';
+            for (let i = 0; i < origenes.length; i++)
+                if (origenes[i].textContent === document.getElementById('origen').value) {
+                    let destinos = origenes[i].parentElement.getElementsByTagName('DESTINO');
+
                     for (let j = 0; j < destinos.length; j++) {
-                        opciones += "<option>" + destinos[j].textContent + "</option>";
+                        const destino = destinos[j];
+                        opciones += '<option>' + destino.textContent + '</option>';
                     }
                 }
-            }
-            document.getElementById("destino").innerHTML = opciones;
+
+            document.getElementById('destino').innerHTML = opciones;
+
         }
     </script>
 
