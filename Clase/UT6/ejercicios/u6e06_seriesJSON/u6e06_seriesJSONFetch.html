@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>u6e06_seriesJSON</title>
+    <style>
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        .título {
+            font-weight: bold;
+        }
+
+        .director {
+            font-style: italic;
+        }
+
+        .rojo {
+            color: red;
+        }
+
+        .amarillo {
+            color: gold;
+            /* se lee mejor gold que  yellow*/
+        }
+
+        .verde {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', cargar);
+
+        function cargar() {
+            async function obtenerJSON(url) {
+                let response = await fetch(url);
+                if (response.ok && response.status === 200) {
+                    let json = await response.json();
+                    cargarJSON(json);
+                } else if (response.status === 404)
+                    document.getElementById("tabla").innerHTML = "Error 404: archivo no enontrado.";
+            }
+
+            obtenerJSON("series.json");
+
+        }
+
+        function cargarJSON(series) {
+            let tabla =
+                "<caption>Series</caption>" +
+                "<tr>" +
+                "<th>Título</th><th>Cadena</th>" +
+                "<th>Director</th>" +
+                "<th>Año</th>" +
+                "<th>Terminada</th>" +
+                "</tr>";
+
+            for (let i = 0; i < series.length; i++) {
+                const serie = series[i];
+
+                tabla += "<tr><td class='título'>" + serie.título + "</td>";
+                tabla += "<td class='cadena'>" + serie.cadena + "</td>";
+                tabla += "<td class='director'>" + serie.director + "</td>";
+
+                let año = parseInt(serie.año);
+                let color;
+                if (año > 2010)
+                    color = "verde";
+                else if (año > 2000)
+                    color = "amarillo";
+                else
+                    color = "rojo";
+                tabla += "<td class='" + color + "'>" + año + "</td>";
+
+                let icono;
+                let terminada = serie.terminada;
+                if (terminada === "Sí")
+                    icono = "&#10003; "; // -> ✓ <- check
+                else
+                    icono = "&#10007; "; // -> ✗ <- x
+                tabla += "<td>" + icono + terminada + "</td></tr>";
+
+            }
+
+            document.getElementById("tabla").innerHTML = tabla;
+        }
+    </script>
+
+    <table id="tabla"></table>
+
+
+</body>
+
+</html>

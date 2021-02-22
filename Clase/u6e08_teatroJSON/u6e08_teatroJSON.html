@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u6e08_teatroJSON</title>
+    <style>
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid black;
+            /* text-align: center; */
+        }
+
+        table,
+        body {
+            width: auto;
+            max-width: 100%;
+        }
+
+        #botones {
+            display: none;
+        }
+
+        input {
+            width: 1em;
+            ;
+        }
+
+        img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        console.log(
+            '¡Me ha gustado mucho este ejercicio!\nBueno, más bien me ha gustado la parte de la lógica de los botones. Je, je, je.'
+        )
+
+        selectRellenado = 0;
+        document.addEventListener('DOMContentLoaded', inicio);
+
+        function inicio() {
+
+            cargarXML();
+
+            // Select
+            document.getElementById('teatros').addEventListener('change', (e) => {
+
+                // Le doy valor 1 para que no conserve el valor qué tenía con el otro teatro
+                document.getElementById('n').value = 1;
+                if (e.target.value != '') {
+                    cargarJSON();
+                }
+                // esto por si en vez de selecionar un cine se seleciona "- - -":
+                else {
+                    document.getElementById("tabla").innerHTML = '';
+                    document.getElementById('botones').style.display = "none";
+                }
+            });
+
+            // Buttons
+            document.getElementById('primera').addEventListener('click', primera);
+            document.getElementById('anterior').addEventListener('click', anterior);
+            document.getElementById('siguiente').addEventListener('click', siguiente);
+            document.getElementById('ultimo').addEventListener('click', ultimo);
+
+        }
+
+        function cargarXML() {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.addEventListener("readystatechange",
+                function () {
+                    if (this.readyState === 4 && this.status === 200)
+                        rellenarSelect(this.responseXML);
+
+                    else if (this.status === 404)
+                        document.getElementsByTagName("body")[0].innerHTML =
+                        "Error 404: archivo de teatros no enontrado.";
+
+                });
+
+            xhr.open("GET", "teatros.xml");
+            xhr.send();
+        }
+
+        function rellenarSelect(xml) {
+
+            let teatros = xml.getElementsByTagName("TEATROS_MADRID");
+            let options = "<option value=''> - - - </option>";
+
+            for (let i = 0; i < teatros.length; i++) {
+                const teatro = teatros[i].getElementsByTagName('TEATRO')[0].innerHTML;
+                options += "<option value='" + teatro + "'>" + teatro + "</option>";
+            }
+            document.getElementById('teatros').innerHTML = options;
+
+        }
+
+
+        function cargarJSON() {
+
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    cargarObra(this);
+                    document.getElementById('botones').style.display = "inline";
+                } else if (this.status === 404)
+                    document.getElementById("tabla").innerHTML =
+                    "Error 404: archivo de cartelera no enontrado.";
+            });
+
+            xhr.open("GET", "cartelera.json");
+            xhr.send();
+        }
+
+        function cargarObra(xhr) {
+
+
+
+            let teatro = document.getElementById('teatros').value;
+            let obras = JSON.parse(xhr.responseText).obras;
+            let cabeceras = "<table>" +
+                "<caption>Cartelera</caption>" +
+                "<tr>" +
+                "<th>Titulo</th>" +
+                "<th>Precio</th>" +
+                "<th>Imagen</th>" +
+                "<th>Sinopsis</th>" +
+                "</tr>";
+            let celdasObra;
+
+            // Con estas variables sabremos cúal es la obra que tenemos que mostrar
+            let n = document.getElementById('n').value;
+            let contador = 0;
+
+            for (let i = 0; i < obras.length; i++) {
+                const obra = obras[i];
+                if (teatro == obra.teatro) {
+
+                    celdasObra = "<tr><td>" + obra.titulo + "</td>";
+                    celdasObra += "<td>" + obra.precio + "</td>";
+                    celdasObra += "<td>  <img src = '" + obra.imagen + "'></td>";
+                    celdasObra += "<td>" + obra.sinopsis + "</td></table>";
+
+                    contador++;
+                    if (contador == n) {
+                        // pongo un break por vagancia
+                        // normalmente prefiero ponerle un booleano al bucle
+                        break;
+                    }
+                }
+            }
+            // Esto hará que al dar a Siguiente estando en el último no varíe su valor
+            // También le dará valor al dar a Último
+            document.getElementById('n').value = contador;
+
+
+            document.getElementById("tabla").innerHTML = cabeceras + celdasObra;
+
+        }
+
+        function primera() {
+            document.getElementById('n').value = 1;
+            cargarJSON();
+        }
+
+        function anterior() {
+            // en cargarObra controlo el siguiente cuando está en el ultimo
+            // pero el anterior si es el primero lo hago aquí:
+            let n = Number.parseInt(document.getElementById('n').value);
+            if (n > 1) {
+                document.getElementById('n').value--;
+                cargarJSON();
+            }
+        }
+
+        function siguiente() {
+            document.getElementById('n').value++;
+            cargarJSON();
+        }
+
+        function ultimo() {
+            // Al valer -1 no hará el break y cogerá la última obra que por la que pase
+            document.getElementById('n').value = -1;
+            cargarJSON();
+        }
+    </script>
+
+    <select id='teatros'>
+        <option>--</option>
+    </select>
+    <div id="botones">
+        <button id="primera">Primera</button>
+        <button id="anterior">Anterior</button>
+        <input type="text" id="n" value=1 readonly>
+        <button id="siguiente">Siguiente</button>
+        <button id="ultimo">Último</button>
+    </div>
+    <div id="tabla"></div>
+
+</body>
+
+</html>
