@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación final - Ejercicio 2</title>
+    <style>
+        caption {
+            font-size: xx-large;
+            padding: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin: 10px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        th {
+            background-color: black;
+            color: white;
+        }
+
+        button {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', inicio);
+
+        function inicio() {
+
+            // 1ª parte
+            let h2 = document.createElement("h2");
+
+            h2.appendChild(document.createTextNode('Capitales y monedas'));
+
+            document.body.insertBefore(h2, document.body.firstChild);
+
+            h2.style.margin = '10px';
+            h2.style.padding = '10px';
+            h2.style.backgroundColor = 'lightgrey';
+            h2.style.fontFamily = 'Century Gothic';
+
+
+            // 2ª parte
+            document.getElementById('borrarFila').addEventListener('click', borrar);
+        }
+
+        function borrar() {
+            let pais = prompt('Escriba el pais de la fila a borrar:');
+
+            let tds = document.getElementsByTagName('td');
+
+            let encontrado = false;
+            for (let i = 0; i < tds.length && !encontrado; i++) {
+                const td = tds[i];
+                // Solo los paises
+                if (i % 3 == 0) {
+                    if (td.innerHTML == pais) {
+                        encontrado = true
+                        let tbody = td.parentElement.parentElement;
+                        let fila = td.parentElement;
+                        tbody.removeChild(fila);
+                    }
+                }
+            }
+            if (!encontrado) {
+                alert('No se ha encontrado el pais "' + pais + '".')
+            }
+        }
+    </script>
+    <table>
+        <thead>
+            <tr>
+                <th>País</th>
+                <th>Capital</th>
+                <th>Moneda</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>España</td>
+                <td>Madrid</td>
+                <td>Euro</td>
+            </tr>
+            <tr>
+                <td>Mexico</td>
+                <td>Ciudad de México</td>
+                <td>Peso mexicano</td>
+            </tr>
+            <tr>
+                <td>Argentina</td>
+                <td>Buenos Aires</td>
+                <td>Peso argentino</td>
+            </tr>
+            <tr>
+                <td>Brasil</td>
+                <td>Brasilia</td>
+                <td>Real brasileño</td>
+            </tr>
+            <tr>
+                <td>Bolivia</td>
+                <td>La Paz</td>
+                <td>Boliviano</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>País</th>
+                <th>Capital</th>
+                <th>Moneda</th>
+            </tr>
+        </tfoot>
+    </table>
+    <button id="borrarFila">Borrar fila</button>
+    <script>
+
+    </script>
+</body>

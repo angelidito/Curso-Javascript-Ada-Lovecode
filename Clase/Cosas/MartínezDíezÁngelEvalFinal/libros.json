@@ -1,0 +1,33 @@
+{
+    "libros": [{
+            "ISBN": "978-84-204-3571-8",
+            "titulo": "Tiempos recios",
+            "autor": "Mario Vargas Llosa",
+            "editorial": "Alfaguara"
+        },
+        {
+            "ISBN": "978-84-204-3547-3",
+            "titulo": "Sidi",
+            "autor": "Arturo Pérez-Reverte",
+            "editorial": "Alfaguara"
+        },
+        {
+            "ISBN": "978-84-17624-27-9",
+            "titulo": "El último barco",
+            "autor": "Domingo Villar",
+            "editorial": "Siruela"
+        },
+        {
+            "ISBN": "978-84-9199-137-3",
+            "titulo": "Churchill",
+            "autor": "Andrew Roberts",
+            "editorial": "Critica"
+        },
+        {
+            "ISBN": "978-84-670-5701-0",
+            "titulo": "Fracasología",
+            "autor": "María Elvira Roca Barea",
+            "editorial": "Espasa"
+        }
+    ]
+}

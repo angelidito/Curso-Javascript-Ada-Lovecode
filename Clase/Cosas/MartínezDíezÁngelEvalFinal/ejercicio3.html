@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="eS">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Evaluación final - Ejercicio 3</title>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            text-align: center;
+            width: 50%;
+        }
+
+        td,
+        th {
+            border: 1px solid blue;
+        }
+
+        section {
+            clear: both;
+            padding-top: 2em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>BIBLIOTECA</h1>
+
+    <section id="noPrestados">
+        <h2>LIBROS NO PRESTADOS</h2>
+        <table>
+            <thead>
+                <th>ISBN</th>
+                <th>TITULO</th>
+                <th>AUTOR</th>
+                <th>EDITORIAL</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+    <section id="prestados">
+        <h2>LIBROS PRESTADOS</h2>
+        <table>
+            <thead>
+                <th>ISBN</th>
+                <th>TITULO</th>
+                <th>AUTOR</th>
+                <th>EDITORIAL</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', cargarLibros);
+
+        function cargarLibros() {
+            async function cargarJSON(url) {
+
+                let respose = await fetch(url);
+                let json = await respose.json();
+                cargarTablas(json);
+
+            }
+            cargarJSON('libros.json');
+        }
+
+        function cargarTablas(json) {
+            for (let i = 0; i < json.libros.length; i++) {
+                const libro = json.libros[i];
+
+                let fila = document.createElement('tr');
+                let td;
+
+                // ISBN
+                td = document.createElement('td');
+                td.appendChild(document.createTextNode(libro.ISBN));
+                fila.appendChild(td);
+
+                // titulo
+                td = document.createElement('td');
+                td.appendChild(document.createTextNode(libro.titulo));
+                fila.appendChild(td);
+
+                // autor
+                td = document.createElement('td');
+                td.appendChild(document.createTextNode(libro.autor));
+                fila.appendChild(td);
+
+                // editorial
+                td = document.createElement('td');
+                td.appendChild(document.createTextNode(libro.editorial));
+                fila.appendChild(td);
+
+
+                if (libro.ISBN === "978-84-17624-27-9" || libro.ISBN === "978-84-204-3547-3") {
+
+                    let tbody = document.getElementById('prestados').getElementsByTagName('tbody')[0];
+
+                    tbody.appendChild(fila);
+
+                } else {
+
+                    let tbody = document.getElementById('noPrestados').getElementsByTagName('tbody')[0];
+
+                    tbody.appendChild(fila);
+
+                }
+
+
+
+            }
+        }
+    </script>
+</body>
+
+</html>

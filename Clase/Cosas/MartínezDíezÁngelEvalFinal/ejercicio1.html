@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación final - Ejercicio 1</title>
+    <style>
+        h1 {
+            color: darkred;
+        }
+
+        ul,
+        li {
+            list-style: none;
+            padding: 0;
+        }
+
+        label {
+            display: inline-block;
+            width: 8em;
+            text-align: right;
+            margin-right: 0.5em;
+        }
+
+        input {
+            width: 20em;
+        }
+
+        input~span {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', inicio);
+
+        function inicio() {
+
+            console.log(
+                "Hago un preventDefault cuando insertas un libro para que puedas ver como se almacenan en el array "
+            );
+
+            // Este array contendrá los libros añadidos
+            arrayDeObjetos = [];
+
+            // Eventos click
+            document.getElementById('insertarLibro').addEventListener('click', validar);
+            document.getElementById('eliminarLibro').addEventListener('click', borrar);
+
+
+            // WEB STORAGE
+            if (localStorage.getItem('ultimaCon') != null) {
+                document.getElementById('horaUltCon').innerHTML = localStorage.getItem('ultimaCon');
+            }
+
+            // Llamamos a la funcion al cargar la página
+            horaYUltimaConexion();
+            // Y luego una vez cada segundo
+            setInterval(horaYUltimaConexion, 1000);
+        }
+
+        function horaYUltimaConexion() {
+
+            // Obtenemos la hora y le damos algo de formato
+            let date = new Date();
+            hora = (date.getUTCHours() + 1) + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds();
+
+            // Guardamos la hora en el localStorage
+            localStorage.setItem('ultimaCon', hora);
+            // y la mostramos en el html
+            document.getElementById('horaActual').innerHTML = hora;
+        }
+
+        function validar(e) {
+
+            // Campos del formulario
+            let inputs = document.getElementsByTagName("input");
+
+            // Esta variable nos sirve paa enviar el focus al primer error
+            // Aunque ahora que lo pienso, podría haber recorrido el bucle al revés 
+            // y me la podría haber ahorrado.
+            let hayErrores = false;
+
+            for (let i = 0; i < inputs.length; i++) {
+                const input = inputs[i];
+
+                // span correspondiente a cada campo
+                let span = document.getElementById(input.getAttribute("id") + 'Err');
+
+                // Si está vacio el campo:
+                if (input.value == '') {
+
+                    span.innerHTML = "Rellene este campo.";
+
+                    // Foco al primer campo con error
+                    if (!hayErrores) {
+                        hayErrores = true;
+                        input.focus();
+                    }
+
+                }
+                // Si el ISBN no tiene el formato correcto:
+                else if (i === 2 && !/^\d{3}-\d{2}-\d{3}-\d{4}-\d$/.test(input.value)) {
+
+                    span.innerHTML = "Formato incorrecto.";
+
+                    // Foco al primer campo con error
+                    if (!hayErrores) {
+                        hayErrores = true;
+                        input.focus();
+                    }
+
+                }
+                // Si el camps está relenado correctamente:
+                else {
+                    span.innerHTML = ''; // eliminamos el error si se mostraba
+                }
+            }
+
+            // Si hay errores:
+            if (hayErrores) {
+                e.preventDefault(); // para que no se envíe el formulario
+            } else {
+                // Añadimos el objeto al array de objetos
+                arrayDeObjetos.push({
+                    titulo: inputs[0].value,
+                    autor: inputs[1].value,
+                    isbn: inputs[2].value,
+                    editorial: inputs[3].value,
+                });
+                // Mensajitos en la consola:
+                console.log('Libro añadido');
+                console.log(arrayDeObjetos);
+
+            }
+
+            // Este es el preventDefault que Hago cuando insertas un libro para que puedas ver como se almacenan en el array 
+            // Si lo borras no se verá, pero el programa seguirá funcionando
+            // Si el array lo guardasemos en localStorage entiendo que no haría falta, 
+            // pero como no lo hacemos, si se carga la pagina perdemos el contenido del array
+            e.preventDefault();
+
+        }
+
+        function borrar() {
+            // Preguntamos
+            let isbn = prompt('Escrib el ISBN del libro a eliminar:');
+
+            // Para comprobar si existe el libo
+            let existe = false;
+
+            for (let i = 0; i < arrayDeObjetos.length; i++) {
+                const libro = arrayDeObjetos[i];
+
+                // Si hay varios con el mismo isbn se eliminan todos
+                if (libro.isbn === isbn) {
+                    existe = true;
+                    // Lo sacamos del array
+                    arrayDeObjetos.splice(i, 1);
+                    // vamos atras con el contador, porque hemos movido las posiciones del array
+                    i--;
+                    // Mensajitos en la consola:
+                    console.log('Libro eliminado');
+                    console.log(arrayDeObjetos);
+                }
+
+            }
+            // Si no existe:
+            if (!existe) {
+                alert("El ISBN del libro a elmininar no existe.");
+            }
+        }
+    </script>
+
+    <h1>Biblioteca</h1>
+    <h2>Dar de alta un libro</h2>
+    <form>
+        <ul>
+            <li>
+                <label for="titulo">Titulo: </label>
+                <input type="text" id="titulo" name="titulo" value="Don Quijote">
+                <span id="tituloErr"></span>
+            </li>
+            <li>
+                <label for="autor">Autor: </label>
+                <input type="text" id="autor" name="autor" value="Cervantes">
+                <span id="autorErr"></span>
+            </li>
+            <li>
+                <label for="isbn">ISBN: </label>
+                <input type="text" id="isbn" name="isbn" value="456-21-215-3215-1">
+                <span id="isbnErr"></span>
+            </li>
+            <li>
+                <label for="editorial">Editorial: </label>
+                <input type="text" id="editorial" name="editorial" value="Burgos">
+                <span id="editorialErr"></span>
+            </li>
+        </ul>
+        <button id="insertarLibro">Insertar libro</button>
+    </form>
+    <h2>Eliminar un libro</h2>
+    <div><button id="eliminarLibro">Eliminar libro</button></div>
+    <hr>
+    <p>Última conexión: <span id="horaUltCon"></span> -- Hora actual: <span id="horaActual"></span></p>
+    <script>
+    </script>
+</body>
+
+</html>
