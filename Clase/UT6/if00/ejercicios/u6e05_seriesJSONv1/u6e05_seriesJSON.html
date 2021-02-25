@@ -73,6 +73,7 @@
                 if (this.readyState === 4 && this.status === 200) {
                     cargarJSON(this);
                 }
+
             });
             xhr.open("GET", "series.json");
             xhr.send();
